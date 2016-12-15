@@ -13,8 +13,8 @@ RewriteCond %{HTTPS} on
 RewriteRule (.*) http://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
 
 # Force www
-#RewriteCond %{HTTP_HOST} !^(www)\.paris-equity-check\.org [NC]
-#RewriteRule ^(.*)$ http://www.paris-equity-check.org/$1 [L,R=301]
+RewriteCond %{HTTP_HOST} !^(www)\.paris-equity-check\.org [NC]
+RewriteRule ^(.*)$ http://www.paris-equity-check.org/$1 [L,R=301]
 
 # Rewrite photos with other slug on FTP
 RewriteCond %{REQUEST_FILENAME} !-f
