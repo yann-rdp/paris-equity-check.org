@@ -85,7 +85,7 @@
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand modal-button" href="#paris-equity-check"><i class="icon-stats" aria-hidden="true"></i>Paris Equity Check</a>
+					<a class="navbar-brand" href="./"><img src="assets/images/logo.svg" alt="Paris Equity Check" width="40" height="40">Paris Equity Check</a>
 				</div>
 
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -96,7 +96,6 @@
 
 					<ul class="nav navbar-nav navbar-right">
 						<li><a href="credits.html">Credits</a></li>
-						<!--<li class="college-logo"><img src="assets/images/logo_australian_german_climate_energy_college.png" alt="Australian-German Climate & Energy College, The University of Melbourne" height="60"></li>-->
 					</ul>
 				</div>
 			</nav>
@@ -111,7 +110,7 @@
 						<div class="toolbar-top">
 							<div class="row mb0">
 								<div class="one-third">
-									<h1>How fair are countries' <br>climate pledges?</h1>
+									<h1><a href="#paris-equity-check" class="modal-button">How fair are countries' <br>climate pledges? <span class="icon-info" aria-hidden="true"></span></a></h1>
 								</div>
 								<div class="one-third one-third-mobile a-c">
 									<div class="btn-group temperature-toggle" role="group" aria-label="Temperature goal">
@@ -143,7 +142,7 @@
 						<div class="map-legend a-c">
 							<div class="map-legend__left a-l">
 								<div class="colour-legend">
-									<p>Multidimensional <br>equity grading</p>
+									<p class="grading-tip">Multidimensional <br>equity grading</p>
 									<p class="colour-legend_ambition">Ambition</p>
 									<div class="colour-legend__row">
 										<span class="colour colour-5"></span>
@@ -183,11 +182,11 @@
 							<div class="map-legend__inner">
 								<a href="#five-equity-assessments" title="Five equity assessments" class="modal-button">Five equity assessments <span class="icon-info" aria-hidden="true"></span></a>
 								<div class="stars stars-legend">
-									<span class="icon-rand star star--cer legend"><span>Constant emissions<br>ratio</span></span>
-									<span class="icon-rand star star--gdr legend"><span>Greenhouse development rights</span></span>
-									<span class="icon-rand star star--cap legend"><span>Capability</span></span>
-									<span class="icon-rand star star--cpc legend"><span>Equal<br>cumulative per capita</span></span>
-									<span class="icon-rand star star--epc legend"><span>Equal<br>per capita</span></span>
+									<span class="icon-rand star star--cer legend tooltip--cer"><span>Constant emissions<br>ratio</span></span>
+									<span class="icon-rand star star--gdr legend tooltip--gdr"><span>Greenhouse development rights</span></span>
+									<span class="icon-rand star star--cap legend tooltip--cap"><span>Capability</span></span>
+									<span class="icon-rand star star--cpc legend tooltip--cpc"><span>Equal<br>cumulative per capita</span></span>
+									<span class="icon-rand star star--epc legend tooltip--epc"><span>Equal<br>per capita</span></span>
 								</div>
 							</div>
 						</div>
@@ -214,7 +213,6 @@
 	<div id="graph" class="md-modal md-cover">
 		<div class="md-content">
 
-
 			<div class="toolbar-top-graph">
 				<div class="btn-group temperature-toggle" role="group" aria-label="Temperature goal">
 					<div class="btn btn-default" id="one-graph">1.5°C</div>
@@ -226,11 +224,11 @@
 				<div class="container">
 					<h2 class="graph-country a-c">Country</h2>
 					<div class="stars-graph a-c">
-						<span class="icon-rand star star--cer"><span>Constant emissions<br>ratio</span></span>
-						<span class="icon-rand star star--gdr"><span>Greenhouse development rights</span></span>
-						<span class="icon-rand star star--cap"><span>Capability</span></span>
-						<span class="icon-rand star star--cpc"><span>Equal<br>cumulative per capita</span></span>
-						<span class="icon-rand star star--epc"><span>Equal<br>per capita</span></span>
+						<span class="icon-rand star star--cer tooltip--cer"><span>Constant emissions<br>ratio</span></span>
+						<span class="icon-rand star star--gdr tooltip--gdr"><span>Greenhouse development rights</span></span>
+						<span class="icon-rand star star--cap tooltip--cap"><span>Capability</span></span>
+						<span class="icon-rand star star--cpc tooltip--cpc"><span>Equal<br>cumulative per capita</span></span>
+						<span class="icon-rand star star--epc tooltip--epc"><span>Equal<br>per capita</span></span>
 					</div>
 
 					<div id="chart"></div>
@@ -292,84 +290,84 @@
 						<img src="assets/images/content/how-to-read.jpg" alt="How to read this graph?">
 					</div>
 
-					<div class="data-table">
-						<div class="row">
-							<div class="one-half">
-								<table class="data-table__2030">
-									<tr>
-										<th colspan="4" class="a-c unit-2030">2030</th>
-									</tr>
-									<tr class="row-cap">
-										<td class="a-c">CAP</td>
-										<td class="a-c deg"></td>
-										<td class="avg">..</td>
-										<td class="range">[.. to ..]</td>
-									</tr>
-									<tr class="row-epc">
-										<td class="a-c">EPC</td>
-										<td class="a-c deg"></td>
-										<td class="avg">..</td>
-										<td class="range">[.. to ..]</td>
-									</tr>
-									<tr class="row-gdr">
-										<td class="a-c">GDR</td>
-										<td class="a-c deg"></td>
-										<td class="avg">..</td>
-										<td class="range">[.. to ..]</td>
-									</tr>
-									<tr class="row-cpc">
-										<td class="a-c">CPC</td>
-										<td class="a-c deg"></td>
-										<td class="avg">..</td>
-										<td class="range">[.. to ..]</td>
-									</tr>
-									<tr class="row-cer">
-										<td class="a-c">CER</td>
-										<td class="a-c deg"></td>
-										<td class="avg">..</td>
-										<td class="range">[.. to ..]</td>
-									</tr>
-								</table>
-							</div>
-							<div class="one-half">
-								<table class="data-table__2050">
-									<tr>
-										<th colspan="4" class="a-c unit-2050">2050</th>
-									</tr>
-									<tr class="row-cap">
-										<td class="a-c">CAP</td>
-										<td class="a-c deg"></td>
-										<td class="avg">..</td>
-										<td class="range">[.. to ..]</td>
-									</tr>
-									<tr class="row-epc">
-										<td class="a-c">EPC</td>
-										<td class="a-c deg"></td>
-										<td class="avg">..</td>
-										<td class="range">[.. to ..]</td>
-									</tr>
-									<tr class="row-gdr">
-										<td class="a-c">GDR</td>
-										<td class="a-c deg"></td>
-										<td class="avg">..</td>
-										<td class="range">[.. to ..]</td>
-									</tr>
-									<tr class="row-cpc">
-										<td class="a-c">CPC</td>
-										<td class="a-c deg"></td>
-										<td class="avg">..</td>
-										<td class="range">[.. to ..]</td>
-									</tr>
-									<tr class="row-cer">
-										<td class="a-c">CER</td>
-										<td class="a-c deg"></td>
-										<td class="avg">..</td>
-										<td class="range">[.. to ..]</td>
-									</tr>
-								</table>
-							</div>
-						</div>
-					</div>
+					<!--<div class="data-table">-->
+						<!--<div class="row">-->
+							<!--<div class="one-half">-->
+								<!--<table class="data-table__2030">-->
+									<!--<tr>-->
+										<!--<th colspan="4" class="a-c unit-2030">2030</th>-->
+									<!--</tr>-->
+									<!--<tr class="row-cap">-->
+										<!--<td class="a-c">CAP</td>-->
+										<!--<td class="a-c deg"></td>-->
+										<!--<td class="avg">..</td>-->
+										<!--<td class="range">[.. to ..]</td>-->
+									<!--</tr>-->
+									<!--<tr class="row-epc">-->
+										<!--<td class="a-c">EPC</td>-->
+										<!--<td class="a-c deg"></td>-->
+										<!--<td class="avg">..</td>-->
+										<!--<td class="range">[.. to ..]</td>-->
+									<!--</tr>-->
+									<!--<tr class="row-gdr">-->
+										<!--<td class="a-c">GDR</td>-->
+										<!--<td class="a-c deg"></td>-->
+										<!--<td class="avg">..</td>-->
+										<!--<td class="range">[.. to ..]</td>-->
+									<!--</tr>-->
+									<!--<tr class="row-cpc">-->
+										<!--<td class="a-c">CPC</td>-->
+										<!--<td class="a-c deg"></td>-->
+										<!--<td class="avg">..</td>-->
+										<!--<td class="range">[.. to ..]</td>-->
+									<!--</tr>-->
+									<!--<tr class="row-cer">-->
+										<!--<td class="a-c">CER</td>-->
+										<!--<td class="a-c deg"></td>-->
+										<!--<td class="avg">..</td>-->
+										<!--<td class="range">[.. to ..]</td>-->
+									<!--</tr>-->
+								<!--</table>-->
+							<!--</div>-->
+							<!--<div class="one-half">-->
+								<!--<table class="data-table__2050">-->
+									<!--<tr>-->
+										<!--<th colspan="4" class="a-c unit-2050">2050</th>-->
+									<!--</tr>-->
+									<!--<tr class="row-cap">-->
+										<!--<td class="a-c">CAP</td>-->
+										<!--<td class="a-c deg"></td>-->
+										<!--<td class="avg">..</td>-->
+										<!--<td class="range">[.. to ..]</td>-->
+									<!--</tr>-->
+									<!--<tr class="row-epc">-->
+										<!--<td class="a-c">EPC</td>-->
+										<!--<td class="a-c deg"></td>-->
+										<!--<td class="avg">..</td>-->
+										<!--<td class="range">[.. to ..]</td>-->
+									<!--</tr>-->
+									<!--<tr class="row-gdr">-->
+										<!--<td class="a-c">GDR</td>-->
+										<!--<td class="a-c deg"></td>-->
+										<!--<td class="avg">..</td>-->
+										<!--<td class="range">[.. to ..]</td>-->
+									<!--</tr>-->
+									<!--<tr class="row-cpc">-->
+										<!--<td class="a-c">CPC</td>-->
+										<!--<td class="a-c deg"></td>-->
+										<!--<td class="avg">..</td>-->
+										<!--<td class="range">[.. to ..]</td>-->
+									<!--</tr>-->
+									<!--<tr class="row-cer">-->
+										<!--<td class="a-c">CER</td>-->
+										<!--<td class="a-c deg"></td>-->
+										<!--<td class="avg">..</td>-->
+										<!--<td class="range">[.. to ..]</td>-->
+									<!--</tr>-->
+								<!--</table>-->
+							<!--</div>-->
+						<!--</div>-->
+					<!--</div>-->
 
 
 					<p class="mb40">“NDC & INDC factsheets” assessment from <em>Malte Meinshausen & Ryan Alexander</em>, 2015, at:
@@ -425,7 +423,6 @@
 						</div>
 					</div>
 
-
 					<div>
 						<p>Fairness statement downloaded on October 28th 2016 from: <br>WRI, CAIT Climate Data Explorer. 2016. CAIT Paris Contributions Map. Washington, DC: World Resources Institute. (<a
 								href="http://cait.wri.org/indcs/" target="_blank" rel="noopener noreferrer">http://cait.wri.org/indcs/</a>). <br>The original
@@ -462,7 +459,7 @@
 									<p>global <b>net-zero emission by 2100</b>,</p>
 								</li>
 								<li>
-									<p>at least a likely (>66%) chance of <b>limiting global warming to 2 °C for the rest the century</b>,</p>
+									<p>at least a likely (>66%) chance of <b>limiting global warming to below 2 °C for the rest the century</b>,</p>
 								</li>
 								<li>
 									<p>a subset of 1.5 °C, scenarios with a more likely than not (>50%) chance <b>of returning to below 1.5 °C of warming in 2100</b>.</p>
@@ -495,7 +492,7 @@
 							<p>National emissions allocations are quantified following the five equity categories presented in the
 								<a href="http://www.ipcc.ch/pdf/assessment-report/ar5/wg3/ipcc_wg3_ar5_chapter6.pdf" target="_blank" rel="noopener noreferrer">IPCC-AR5 WGIII Ch. 6</a> (Table 6.5). The methodology is detailed in
 								<a href="http://iopscience.iop.org/article/10.1088/1748-9326/11/5/054005" target="_blank" rel="noopener noreferrer">this study</a>, and the formula and parameterization available
-								<a href="http://iopscience.iop.org/1748-9326/11/5/054005/media/erl054005_suppdata.pdf" target="_blank" rel="noopener noreferrer"></a>here. Each of these allocation approaches allocates the emissions of the cost-optimal scenarios presented in the “Temperature goal” section, but exclude emissions from the land-use sector and from international aviation and shipping. The national equitable emissions allocations presented in this website can be met with a combination of domestic mitigation, internationally traded emissions mitigationsup <sup>12</sup> and support towards global mitigation.</p>
+								<a href="http://iopscience.iop.org/1748-9326/11/5/054005/media/erl054005_suppdata.pdf" target="_blank" rel="noopener noreferrer">here</a>. Each of these allocation approaches allocates the emissions of the cost-optimal scenarios presented in the “Temperature goal” section, but exclude emissions from the land-use sector and from international aviation and shipping. The national equitable emissions allocations presented in this website can be met with a combination of domestic mitigation, internationally traded emissions mitigation and support towards global mitigation.</p>
 							<p>The consistency of national contributions can be checked with each of the five equity categories. This can be compared with countries’ statements on the fairness of their contributions.</p>
 
 							<table class="equity-table">
@@ -515,7 +512,7 @@
 									</th>
 								</tr>
 								<tr>
-									<td><span class="icon-star2 star star--cer legend"></span></td>
+									<td><span class="icon-ster star star--cer legend"></span></td>
 									<td>
 										<p>Constant emissions ratio</p>
 									</td>
@@ -526,11 +523,11 @@
 										<p>Staged approaches</p>
 									</td>
 									<td>
-										<p>Maintains current emissions ratios, preserves status quo.  <br>This approach, often referred to as ‘grandfathering’, is generally not considered as an equitable option in climate justice<sup>15</sup> and not supported as such by any Party.</p>
+										<p>Maintains current emissions ratios, preserves status quo.  <br>This approach, often referred to as ‘grandfathering’, is generally not considered as an equitable option in climate justice and is not supported as such by any Party.</p>
 									</td>
 								</tr>
 								<tr>
-									<td><span class="icon-star2 star star--gdr legend"></span></td>
+									<td><span class="icon-ster star star--gdr legend"></span></td>
 									<td>
 										<p>Greenhouse Development Rights</p>
 									</td>
@@ -542,11 +539,11 @@
 									</td>
 									<td>
 										<p>Countries with high GDP per capita and high historical emissions per capita have low emissions allocation.
-											<br> This approach preserves a ‘right to development’ through the allocation of mitigation requirements<sup>12–14</sup>.</p>
+											<br> This approach preserves a ‘right to development’ through the allocation of mitigation requirements.</p>
 									</td>
 								</tr>
 								<tr>
-									<td><span class="icon-star2 star star--cap legend"></span></td>
+									<td><span class="icon-ster star star--cap legend"></span></td>
 									<td>
 										<p>Capability</p>
 									</td>
@@ -561,7 +558,7 @@
 									</td>
 								</tr>
 								<tr>
-									<td><span class="icon-star2 star star--cpc legend"></span></td>
+									<td><span class="icon-ster star star--cpc legend"></span></td>
 									<td>
 										<p>Equal cumulative per capita</p>
 									</td>
@@ -577,7 +574,7 @@
 									</td>
 								</tr>
 								<tr>
-									<td><span class="icon-star2 star star--epc legend"></span></td>
+									<td><span class="icon-ster star star--epc legend"></span></td>
 									<td>
 										<p>Equal per capita</p>
 									</td>
@@ -615,9 +612,9 @@
 					<div class="md-content-inner">
 						<div class="container">
 							<h2 class="">Paris-Equity-Check.org – How fair are countries' climate pledges?</h2>
-							<p><b>This website presents an assessment of countries’ climate pledges</b> under five visions of climate justice and for emissions pathways that consistent with the Paris Agreement goals of limiting warming to 1.5 °C or well below 2 °C.</p>
-							<p>The <b>Equity Map</b> shows how many of the five visions of climate justice are met by each country’s 2030 pledge. A country will have a number of stars corresponding to the number of visions of climate justice met by their Nationally Determined Contributions.</p>
-							<p>Clicking on a country will show a <b>country graph</b> with the corresponding equitable national emissions pathways as well as the country’s declaration regarding the fairness of its pledge.</p>
+							<p><b>This website presents an assessment of countries’ climate pledges</b> under five visions of climate justice and for emissions pathways that are consistent with the Paris Agreement goals of limiting warming to 1.5 °C or well below 2 °C, and achieving net-zero greenhouse-gas emissions by the end of the century.</p>
+							<p>The <b>Equity Map</b> shows how many of the five visions of equity are met by each country’s 2030 pledge. The number of stars given to each country corresponds to the number of visions of equity met by its Nationally Determined Contribution. A country with a higher number of stars can be considered ambitious according to more visions of equity, and is therefore likely to be considered ambitious by a greater number of countries. However, it would not appear ambitious according to the visions of equity that are not matched, and as such could not be considered as universally ambitious.</p>
+							<p>Clicking on a country will show a <b>country graph</b> with the corresponding equitable national emissions pathways, under each of the five equity concepts, as well as the country’s declaration regarding the fairness of its pledge. The results table indicates which emissions mitigation target (in 2030 or 2050) a country should take to be consistent with its statement.</p>
 
 							<p>The <b>methods</b> behind the modelling of the equitable emissions allocations can be found in the
 								<a href="the-science.html">“The Science”</a>.</p>

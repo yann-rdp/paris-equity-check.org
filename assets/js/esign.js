@@ -17,6 +17,9 @@ esign.cacheSelectors = function () {
 		// world map
 		$map: null,
 
+        // Appoaches
+        $approaches: null,
+
 		// Map export file name
 		$filenameMap: '',
 
@@ -373,14 +376,22 @@ esign.map = function () {
 /* Load map data */
 esign.loadMapData = function() {
     if($second) {
-        $.getJSON('assets/data/indc_2c.json', function(data) {
+        $.getJSON('assets/data/indc_2c.json', function(dataMap) {
             $filenameMap = 'Paris Equity Check 2°C [Downloaded from Paris-equity-check.org]';
-            esign.drawMap(data);
+
+            $.getJSON('assets/data/approach_2c.json', function(dataApproach) {
+                $approaches = dataApproach;
+                esign.drawMap(dataMap);
+            });
         });
     } else {
-        $.getJSON('assets/data/indc_1p5c.json', function(data) {
+        $.getJSON('assets/data/indc_1p5c.json', function(dataMap) {
             $filenameMap = 'Paris Equity Check 1.5°C [Downloaded from Paris-equity-check.org]';
-            esign.drawMap(data);
+
+            $.getJSON('assets/data/assets/data/approach_1p5c.json', function(dataApproach) {
+                $approaches = dataApproach;
+                esign.drawMap(dataMap);
+            });
         });
     }
 };
@@ -394,11 +405,6 @@ esign.drawMap = function(data) {
             style: {
                 fontSize: '8'
             },
-            useHTML: true
-        },
-        subtitle: {
-            // text: 'Downloaded from Paris-equity-check.org; based on: Robiou du Pont, et al. (2017), Nature Climate Change.',
-            text: '',
             useHTML: true
         },
         exporting: {
@@ -417,11 +423,7 @@ esign.drawMap = function(data) {
                 fontFamily: 'Open Sans'
             },
             backgroundColor: '#f6faff',
-            // events: {
-            //     addSeries: function(series) {
-            //         this.options.series.push(series.options);
-            //     }
-            // }
+            pinchType: 'none'
         },
         credits: false,
         mapNavigation: {
@@ -493,7 +495,8 @@ esign.drawMap = function(data) {
                 var iso = this.point['iso-a3'],
                     indc,
                     indcDescription,
-                    name;
+                    name,
+                    classCer, classGdr, classCap, classCpc, classEpc;
 
                 this.point.options.value != null ? indc = this.point.options.value : indc = 'N/A';
 
@@ -506,13 +509,27 @@ esign.drawMap = function(data) {
                 for(var i = 0; i < $countries.length; i++ ) {
                     if($countries[i]['iso-a3'] == iso) name = $countries[i]['country'];
                 }
+
+                function getCountryIso(value) {
+                    return value['iso-a3'] == iso;
+                }
+                var countryApproaches = $approaches.filter(getCountryIso);
+
+                for(var i = 0; i < countryApproaches.length; i ++) {
+                    if(countryApproaches[i]['approach'] == 'CER' && countryApproaches[i]['indc'] == 'X') classCer = 'active';
+                    if(countryApproaches[i]['approach'] == 'GDR' && countryApproaches[i]['indc'] == 'X') classGdr = 'active';
+                    if(countryApproaches[i]['approach'] == 'CAP' && countryApproaches[i]['indc'] == 'X') classCap = 'active';
+                    if(countryApproaches[i]['approach'] == 'CPC' && countryApproaches[i]['indc'] == 'X') classCpc = 'active';
+                    if(countryApproaches[i]['approach'] == 'EPC' && countryApproaches[i]['indc'] == 'X') classEpc = 'active';
+                }
+
                 return '<div class="tool"><h4>' + name
                     + '</h4><div class="approach">' + indcDescription + '</div><div class="stars">'
-                    + '<span class="icon-rand star star--cer"><span>CER</span></span>'
-                    + '<span class="icon-rand star star--gdr"><span>GDR</span></span>'
-                    + '<span class="icon-rand star star--cap"><span>CAP</span></span>'
-                    + '<span class="icon-rand star star--cpc"><span>CPC</span></span>'
-                    + '<span class="icon-rand star star--epc"><span>EPC</span></span></div></div>';
+                    + '<span class="icon-rand star star--cer ' + classCer + '"><span>CER</span></span>'
+                    + '<span class="icon-rand star star--gdr ' + classGdr + '"><span>GDR</span></span>'
+                    + '<span class="icon-rand star star--cap ' + classCap + '"><span>CAP</span></span>'
+                    + '<span class="icon-rand star star--cpc ' + classCpc + '"><span>CPC</span></span>'
+                    + '<span class="icon-rand star star--epc ' + classEpc + '"><span>EPC</span></span></div></div>';
             }
         },
         series: [{
@@ -530,7 +547,7 @@ esign.drawMap = function(data) {
             },
             dataLabels: {
                 enabled: false,
-                useHTML: true,
+                useHTML: true
             },
             point: {
                 events:{
@@ -554,7 +571,7 @@ esign.drawMap = function(data) {
             },
             nullColor: '#fff',
             borderColor: '#D2D2D2',
-            borderWidth: 1,
+            borderWidth: 1
         }]
     });
 
@@ -661,24 +678,22 @@ esign.starListeners = function () {
 
 /* Fill # INDC stars */
 esign.fillStars = function(iso, selector) {
-	var path = $second ? 'assets/data/approach_2c.json' : 'assets/data/approach_1p5c.json';
 
-	$.getJSON(path, function(data) {
-		function getCountryIso(value) {
-			return value['iso-a3'] == iso;
-		}
-		var countryApproaches = data.filter(getCountryIso);
+    function getCountryIso(value) {
+        return value['iso-a3'] == iso;
+    }
+    var countryApproaches = $approaches.filter(getCountryIso);
 
-		$('.stars-legend').addClass('hover');
+    $('.stars-legend').addClass('hover');
 
-		for(var i = 0; i < countryApproaches.length; i ++) {
-			if(countryApproaches[i]['approach'] == 'CER' && countryApproaches[i]['indc'] == 'X') $(selector + ' .star--cer').addClass('active');
-			if(countryApproaches[i]['approach'] == 'GDR' && countryApproaches[i]['indc'] == 'X') $(selector + ' .star--gdr').addClass('active');
-			if(countryApproaches[i]['approach'] == 'CAP' && countryApproaches[i]['indc'] == 'X') $(selector + ' .star--cap').addClass('active');
-			if(countryApproaches[i]['approach'] == 'CPC' && countryApproaches[i]['indc'] == 'X') $(selector + ' .star--cpc').addClass('active');
-			if(countryApproaches[i]['approach'] == 'EPC' && countryApproaches[i]['indc'] == 'X') $(selector + ' .star--epc').addClass('active');
-		}
-	});
+    for(var i = 0; i < countryApproaches.length; i ++) {
+        if(countryApproaches[i]['approach'] == 'CER' && countryApproaches[i]['indc'] == 'X') $(selector + ' .star--cer').addClass('active');
+        if(countryApproaches[i]['approach'] == 'GDR' && countryApproaches[i]['indc'] == 'X') $(selector + ' .star--gdr').addClass('active');
+        if(countryApproaches[i]['approach'] == 'CAP' && countryApproaches[i]['indc'] == 'X') $(selector + ' .star--cap').addClass('active');
+        if(countryApproaches[i]['approach'] == 'CPC' && countryApproaches[i]['indc'] == 'X') $(selector + ' .star--cpc').addClass('active');
+        if(countryApproaches[i]['approach'] == 'EPC' && countryApproaches[i]['indc'] == 'X') $(selector + ' .star--epc').addClass('active');
+    }
+
 };
 
 /* Reset # INDC stars */
@@ -689,44 +704,39 @@ esign.emptyStars = function(selector) {
 
 /* Filter map by stars */
 esign.filterByStars = function () {
-    var path = $second ? 'assets/data/approach_2c.json' : 'assets/data/approach_1p5c.json';
 
-    $.getJSON(path, function(data) {
+    var matchedCountries = [];
 
-        var matchedCountries = [];
+    $approaches.map(function(value, i) {
+        if(value['approach'] == esign.cache.$currentFilterApproach && value['indc'] == 'X') {
+            matchedCountries.push($approaches[i]['iso-a3']);
+        }
+    });
 
-        data.map(function(value, i) {
-            if(value['approach'] == esign.cache.$currentFilterApproach && value['indc'] == 'X') {
-                matchedCountries.push(data[i]['iso-a3']);
+    if(esign.cache.$currentFilterApproach == 'CER') color = '#ff8950';
+    if(esign.cache.$currentFilterApproach == 'GDR') color = '#965c83';
+    if(esign.cache.$currentFilterApproach == 'CAP') color = '#406b80';
+    if(esign.cache.$currentFilterApproach == 'CPC') color = '#ffc850';
+    if(esign.cache.$currentFilterApproach == 'EPC') color = '#8bced7';
+
+    updatePoints(function () {
+        setTimeout(function(){
+            $map.series[0].points.map(function(point) {
+                point.setState();
+            });
+        }, 0);
+    });
+
+    function updatePoints(cb) {
+        $map.series[0].points.map(function(point) {
+            if(matchedCountries.includes(point['iso-a3'])) {
+                point.color = color;
+            } else {
+                point.color = '#F4F4F4';
             }
         });
-
-        if(esign.cache.$currentFilterApproach == 'CER') color = '#ff8950';
-        if(esign.cache.$currentFilterApproach == 'GDR') color = '#965c83';
-        if(esign.cache.$currentFilterApproach == 'CAP') color = '#406b80';
-        if(esign.cache.$currentFilterApproach == 'CPC') color = '#ffc850';
-        if(esign.cache.$currentFilterApproach == 'EPC') color = '#8bced7';
-
-        updatePoints(function () {
-            setTimeout(function(){
-                $map.series[0].points.map(function(point) {
-                    point.setState();
-                });
-            }, 0);
-        });
-
-        function updatePoints(cb) {
-            $map.series[0].points.map(function(point) {
-                if(matchedCountries.includes(point['iso-a3'])) {
-                    point.color = color;
-                } else {
-                    point.color = '#F4F4F4';
-                }
-            });
-            cb();
-        }
-
-    });
+        cb();
+    }
 };
 
 /* Open chart view */
@@ -1543,11 +1553,29 @@ esign.fairnessStatement = function(iso) {
 esign.qtip = function () {
 
     if(!esign.cache.IS_MOBILE) {
-        addStarTooltip($('.star--cer.legend'), 'Constant Emissions Ratio', 'Maintains current national emissions ratios. All countries mitigate at the same rate.');
-        addStarTooltip($('.star--gdr.legend'), 'Greenhouse Development Rights', 'Rich countries with high historical per capita emissions should reduce emissions the most, other countries\' emissions can temporarily increase.');
-        addStarTooltip($('.star--cap.legend'), 'Capability', 'Rich countries should reduce emissions the most, other countries\' emissions can temporarily increase.');
-        addStarTooltip($('.star--cpc.legend'), 'Equal Cumulative Per Capita', 'Countries with high historical per capita emissions should reduce emissions more the future.');
-        addStarTooltip($('.star--epc.legend'), 'Equal Per Capita', 'All countries converge to equal per capita emissions.');
+        addStarTooltip($('.tooltip--cer'), 'Constant Emissions Ratio', 'Maintains current national emissions ratios. All countries mitigate at the same rate.');
+        addStarTooltip($('.tooltip--gdr'), 'Greenhouse Development Rights', 'Rich countries with high historical per capita emissions should reduce emissions the most, other countries\' emissions can temporarily increase.');
+        addStarTooltip($('.tooltip--cap'), 'Capability', 'Rich countries should reduce emissions the most, other countries\' emissions can temporarily increase.');
+        addStarTooltip($('.tooltip--cpc'), 'Equal Cumulative Per Capita', 'Countries with high historical per capita emissions should reduce emissions more the future.');
+        addStarTooltip($('.tooltip--epc'), 'Equal Per Capita', 'All countries converge to equal per capita emissions.');
+        $('.indc-tip').qtip({
+            content: {
+                text: "(I)NDCs – (Intended) Nationally Determined Contributions - are climate action plans that were submitted to the UNFCCC during the lead-up to the Paris Agreement in 2015."
+            },
+            position: {
+                my: 'bottom center',
+                at: 'top center'
+            }
+        });
+        $('.grading-tip').qtip({
+            content: {
+                text: "The number of stars given to each country corresponds to the number of visions of equity met by its Nationally Determined Contribution. A country with a higher number of stars can be considered ambitious according to more visions of equity, and is therefore likely to be considered ambitious by a greater number of countries. However, it would not appear ambitious according to the visions of equity that are not matched, and as such could not be considered as universally ambitious."
+            },
+            position: {
+                my: 'bottom left',
+                at: 'top center'
+            }
+        });
     }
 
     function addStarTooltip(selector, title, text) {
@@ -1562,16 +1590,6 @@ esign.qtip = function () {
             }
         });
     }
-
-    $('.indc-tip').qtip({
-        content: {
-            text: "(I)NDCs – (Intended) Nationally Determined Contributions - are climate action plans that were submitted to the UNFCCC during the lead-up to the Paris Agreement in 2015.",
-        },
-        position: {
-            my: 'bottom center',
-            at: 'top center'
-        }
-    });
 
 };
 

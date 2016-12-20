@@ -4651,5 +4651,74 @@ Highcharts.maps["custom/world-eckert3-highres"] = {
             "type": "Polygon",
             "coordinates": [[[4780, 6391], [4783, 6478], [4814, 6480], [4817, 6596], [4833, 6597], [4881, 6606], [4891, 6606], [4899, 6591], [4920, 6606], [4931, 6605], [4943, 6612], [4953, 6613], [4960, 6593], [4974, 6577], [4979, 6558], [4997, 6545], [5012, 6539], [5014, 6527], [5027, 6526], [5026, 6508], [5037, 6492], [5055, 6490], [5069, 6484], [5070, 6476], [5077, 6473], [5067, 6471], [5063, 6464], [5040, 6457], [5026, 6440], [5002, 6426], [4996, 6406], [4982, 6394], [4965, 6391], [4955, 6363], [4948, 6359], [4931, 6356], [4903, 6363], [4889, 6374], [4875, 6373], [4869, 6367], [4865, 6351], [4849, 6340], [4841, 6330], [4831, 6323], [4805, 6325], [4800, 6322], [4799, 6337], [4806, 6347], [4805, 6354], [4792, 6382], [4780, 6391]]]
         }
+    }, {
+        "type": "Feature",
+        "id": "WS",
+        "properties": {
+            "hc-group": "admin0",
+            "hc-middle-x": 0.50,
+            "hc-middle-y": 0.54,
+            "hc-key": "ws",
+            "hc-a2": "WS",
+            "name": "Samoa",
+            "labelrank": "4",
+            "country-abbrev": "Samoa",
+            "subregion": "Polynesia",
+            "region-wb": "East Asia & Pacific",
+            "iso-a3": "WSM",
+            "iso-a2": "WS",
+            "woe-id": "23424992",
+            "continent": "Oceania"
+        },
+        "geometry": {
+            "type": "Polygon",
+            "coordinates": [[[-891, 6802], [-889, 6793], [-898, 6793], [-906, 6801], [-891, 6802]]]
+        }
+    }, {
+        "type": "Feature",
+        "id": "TO",
+        "properties": {
+            "hc-group": "admin0",
+            "hc-middle-x": 0.54,
+            "hc-middle-y": 0.34,
+            "hc-key": "to",
+            "hc-a2": "TO",
+            "name": "Tonga",
+            "labelrank": "4",
+            "country-abbrev": "Tongo",
+            "subregion": "Polynesia",
+            "region-wb": "East Asia & Pacific",
+            "iso-a3": "TON",
+            "iso-a2": "TO",
+            "woe-id": "23424964",
+            "continent": "Oceania"
+        },
+        "geometry": {
+            "type": "Polygon",
+            "coordinates": [[[-969, 6567], [-970, 6565], [-981, 6570], [-974, 6572], [-969, 6567]]]
+        }
+    }, {
+        "type": "Feature",
+        "id": "ST",
+        "properties": {
+            "hc-group": "admin0",
+            "hc-middle-x": 0.55,
+            "hc-middle-y": 0.50,
+            "hc-key": "st",
+            "hc-a2": "ST",
+            "name": "Sao Tome and Principe",
+            "labelrank": "6",
+            "country-abbrev": "S.T.P.",
+            "subregion": "Middle Africa",
+            "region-wb": "Sub-Saharan Africa",
+            "iso-a3": "STP",
+            "iso-a2": "ST",
+            "woe-id": "23424966",
+            "continent": "Africa"
+        },
+        "geometry": {
+            "type": "Polygon",
+            "coordinates": [[[4385, 7202], [4380, 7206], [4385, 7212], [4389, 7208], [4385, 7202]]]
+        }
     }]
 }
