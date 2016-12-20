@@ -388,7 +388,7 @@ esign.loadMapData = function() {
         $.getJSON('assets/data/indc_1p5c.json', function(dataMap) {
             $filenameMap = 'Paris Equity Check 1.5°C [Downloaded from Paris-equity-check.org]';
 
-            $.getJSON('assets/data/assets/data/approach_1p5c.json', function(dataApproach) {
+            $.getJSON('assets/data/approach_1p5c.json', function(dataApproach) {
                 $approaches = dataApproach;
                 esign.drawMap(dataMap);
             });
