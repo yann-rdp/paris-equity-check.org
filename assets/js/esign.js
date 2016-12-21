@@ -1498,30 +1498,47 @@ esign.createChart = function(pathAverages, pathMin, pathMax, year) {
             return number;
         }
 
-        $('.data-table__2030 .row-cer .avg').html(calc(cerAvg, 2030, year, 1));
-		$('.data-table__2030 .row-gdr .avg').html(calc(gdrAvg, 2030, year, 1));
-        $('.data-table__2030 .row-cap .avg').html(calc(capAvg, 2030, year, 1));
-		$('.data-table__2030 .row-cpc .avg').html(calc(cpcAvg, 2030, year, 1));
-        $('.data-table__2030 .row-epc .avg').html(calc(epcAvg, 2030, year, 1));
+        console.log(calc(cerAvg, 2030, year, 1));
 
-        $('.data-table__2050 .row-cer .avg').html(calc(cerAvg, 2050, year, 1));
-        $('.data-table__2050 .row-gdr .avg').html(calc(gdrAvg, 2050, year, 1));
-		$('.data-table__2050 .row-cap .avg').html(calc(capAvg, 2050, year, 1));
-		$('.data-table__2050 .row-cpc .avg').html(calc(cpcAvg, 2050, year, 1));
-        $('.data-table__2050 .row-epc .avg').html(calc(epcAvg, 2050, year, 1));
+		$('.data-table__2030 .row-cer .avg').html((cerAvg[2030-1990][1] / divider).toPrecision(3));
+		$('.data-table__2030 .row-gdr .avg').html((gdrAvg[2030-1990][1] / divider).toPrecision(3));
+        $('.data-table__2030 .row-cap .avg').html((capAvg[2030-1990][1] / divider).toPrecision(3));
+		$('.data-table__2030 .row-cpc .avg').html((cpcAvg[2030-1990][1] / divider).toPrecision(3));
+        $('.data-table__2030 .row-epc .avg').html((epcAvg[2030-1990][1] / divider).toPrecision(3));
+
+        $('.data-table__2050 .row-cer .avg').html((cerAvg[2050-1990][1] / divider).toPrecision(3));
+        $('.data-table__2050 .row-gdr .avg').html((gdrAvg[2050-1990][1] / divider).toPrecision(3));
+		$('.data-table__2050 .row-cap .avg').html((capAvg[2050-1990][1] / divider).toPrecision(3));
+		$('.data-table__2050 .row-cpc .avg').html((cpcAvg[2050-1990][1] / divider).toPrecision(3));
+        $('.data-table__2050 .row-epc .avg').html((epcAvg[2050-1990][1] / divider).toPrecision(3));
 
 
-        $('.data-table__2030 .row-cer .range').html('[' + (cerRange[2030-2010][1] / divider).toPrecision(3) + ' to ' + (cerRange[2030-2010][2] / divider).toPrecision(3) + ']');
-		$('.data-table__2030 .row-gdr .range').html('[' + (gdrRange[2030-2010][1] / divider).toPrecision(3) + ' to ' + (gdrRange[2030-2010][2] / divider).toPrecision(3) + ']');
-        $('.data-table__2030 .row-cap .range').html('[' + (capRange[2030-2010][1] / divider).toPrecision(3) + ' to ' + (capRange[2030-2010][2] / divider).toPrecision(3) + ']');
-		$('.data-table__2030 .row-cpc .range').html('[' + (cpcRange[2030-2010][1] / divider).toPrecision(3) + ' to ' + (cpcRange[2030-2010][2] / divider).toPrecision(3) + ']');
-        $('.data-table__2030 .row-epc .range').html('[' + (epcRange[2030-2010][1] / divider).toPrecision(3) + ' to ' + (epcRange[2030-2010][2] / divider).toPrecision(3) + ']');
+        if($absolute) {
+            $('.data-table__2030 .row-cer .range').html('[' + calc(cerRange, 2030, year-20, 1) + ' to ' + calc(cerRange, 2030, year-20, 2) + ']');
+            $('.data-table__2030 .row-gdr .range').html('[' + calc(gdrRange, 2030, year-20, 1) + ' to ' + calc(gdrRange, 2030, year-20, 2) + ']');
+            $('.data-table__2030 .row-cap .range').html('[' + calc(capRange, 2030, year-20, 1) + ' to ' + calc(capRange, 2030, year-20, 2) + ']');
+            $('.data-table__2030 .row-cpc .range').html('[' + calc(cpcRange, 2030, year-20, 1) + ' to ' + calc(cpcRange, 2030, year-20, 2) + ']');
+            $('.data-table__2030 .row-epc .range').html('[' + calc(epcRange, 2030, year-20, 1) + ' to ' + calc(epcRange, 2030, year-20, 2) + ']');
 
-        $('.data-table__2050 .row-cer .range').html('[' + (cerRange[2050-2010][1] / divider).toPrecision(3) + ' to ' + (cerRange[2050-2010][2] / divider).toPrecision(3) + ']');
-        $('.data-table__2050 .row-gdr .range').html('[' + (gdrRange[2050-2010][1] / divider).toPrecision(3) + ' to ' + (gdrRange[2050-2010][2] / divider).toPrecision(3) + ']');
-		$('.data-table__2050 .row-cap .range').html('[' + (capRange[2050-2010][1] / divider).toPrecision(3) + ' to ' + (capRange[2050-2010][2] / divider).toPrecision(3) + ']');
-		$('.data-table__2050 .row-cpc .range').html('[' + (cpcRange[2050-2010][1] / divider).toPrecision(3) + ' to ' + (cpcRange[2050-2010][2] / divider).toPrecision(3) + ']');
-        $('.data-table__2050 .row-epc .range').html('[' + (epcRange[2050-2010][1] / divider).toPrecision(3) + ' to ' + (epcRange[2050-2010][2] / divider).toPrecision(3) + ']');
+            $('.data-table__2050 .row-cer .range').html('[' + calc(cerRange, 2050, year-20, 1) + ' to ' + calc(cerRange, 2050, year-20, 2) + ']');
+            $('.data-table__2050 .row-gdr .range').html('[' + calc(gdrRange, 2050, year-20, 1) + ' to ' + calc(gdrRange, 2050, year-20, 2) + ']');
+            $('.data-table__2050 .row-cap .range').html('[' + calc(capRange, 2050, year-20, 1) + ' to ' + calc(capRange, 2050, year-20, 2) + ']');
+            $('.data-table__2050 .row-cpc .range').html('[' + calc(cpcRange, 2050, year-20, 1) + ' to ' + calc(cpcRange, 2050, year-20, 2) + ']');
+            $('.data-table__2050 .row-epc .range').html('[' + calc(epcRange, 2050, year-20, 1) + ' to ' + calc(epcRange, 2050, year-20, 2) + ']');
+        } else {
+            $('.data-table__2030 .row-cer .range').html('[' + calc(cerRange, 2030, year, 1) + ' to ' + calc(cerRange, 2030, year, 2) + ']');
+            $('.data-table__2030 .row-gdr .range').html('[' + calc(gdrRange, 2030, year, 1) + ' to ' + calc(gdrRange, 2030, year, 2) + ']');
+            $('.data-table__2030 .row-cap .range').html('[' + calc(capRange, 2030, year, 1) + ' to ' + calc(capRange, 2030, year, 2) + ']');
+            $('.data-table__2030 .row-cpc .range').html('[' + calc(cpcRange, 2030, year, 1) + ' to ' + calc(cpcRange, 2030, year, 2) + ']');
+            $('.data-table__2030 .row-epc .range').html('[' + calc(epcRange, 2030, year, 1) + ' to ' + calc(epcRange, 2030, year, 2) + ']');
+
+            $('.data-table__2050 .row-cer .range').html('[' + calc(cerRange, 2050, year, 1) + ' to ' + calc(cerRange, 2050, year, 2) + ']');
+            $('.data-table__2050 .row-gdr .range').html('[' + calc(gdrRange, 2050, year, 1) + ' to ' + calc(gdrRange, 2050, year, 2) + ']');
+            $('.data-table__2050 .row-cap .range').html('[' + calc(capRange, 2050, year, 1) + ' to ' + calc(capRange, 2050, year, 2) + ']');
+            $('.data-table__2050 .row-cpc .range').html('[' + calc(cpcRange, 2050, year, 1) + ' to ' + calc(cpcRange, 2050, year, 2) + ']');
+            $('.data-table__2050 .row-epc .range').html('[' + calc(epcRange, 2050, year, 1) + ' to ' + calc(epcRange, 2050, year, 2) + ']');
+        }
+
     }
 
 };
