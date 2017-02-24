@@ -1408,7 +1408,10 @@ esign.createChart = function(pathAverages, pathMin, pathMax, year) {
             type: 'scatter',
             zIndex: 999,
             marker: {
-                symbol: 'url(assets/images/NDC.png)',
+                symbol:
+                    "url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAATCAYAAAByUDbMAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAOdJREFUeNqsVG0RwyAMBRRUAg42CZVQCZVQCZNQCcwBEjoHzEEl1EGX7ODuLYWuP5K7d1CaPBLyYfd9N1KstZ6WIaMj3AgvwkaIDLLbDoZMVpANZz7+Ayaa0PZrL4jSBSJEOJA1iFa+ndATfF7n7FWVsJDJ0B4yBBFBFPpjeXt/lUiQIuFayNCrVPFi5As4s5V/GDJn3izS3ZN3DIIQHZmNUPagODUyeAedAc4XJ2puhc/O1GWA/U/hukrlVxVBYutCl9ukSA/7QHgLoid5nxr6ST2benWm2gHqvak6NbTmmdWctB8BBgBtMbCsf1XVtQAAAABJRU5ErkJggg==)"
+                ,
+                //symbol: 'url(assets/images/NDC.png)',
                 lineWidth: 2,
                 radius: 8,
                 lineColor: 'black',
@@ -1426,7 +1429,8 @@ esign.createChart = function(pathAverages, pathMin, pathMax, year) {
             type: 'scatter',
             zIndex: 999,
             marker: {
-                symbol: 'url(assets/images/newMarker.png)'
+                symbol: 'url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAATCAYAAAByUDbMAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAVhJREFUeNqsVMFRwzAQtDX84zc8CBXgDoAKMBUk+fIhqSCmA/sRvjgV4BJCB04FOA/+oQKzN3PJbA7J4xmimR1L8t6etDop7rousu3qbT3GJ1MkwC3wCeyBWvD9PNnbuJjFICKBOfAS9bcf4UGw8Iqp0EZXMbStITg9DFyP0A5YAA/AjX5LXdWhTRBbnawME4XZ2isy5r6laGIReKTpGfhVfLmqxOyvIUJGtCbBHWLGF+jMibNlIV2FnKgkbPCvJq541QIj4BrcTDxLiVAYIfHxHVgCH+yPlkZFsfcidkcTG5PZnqwYngb4qWMmsrU0TAJ2ZdQ/KVznqXwvkVodSuj0mhz3TX3xY+sp0ibAb0SMf86NwUKeSbkAT1ztekBT9u+sdebU9JJ4SxDzHpHECEX6OByvU+huFmpDq4Wb6dZGvst+/lfDGF4OEJGXY8FCfx7H/760vwIMAOeyph8xNs45AAAAAElFTkSuQmCC)'
+                //symbol: 'url(assets/images/newMarker.png)'
             },
             className: 'indc-tour',
             showInLegend: false
