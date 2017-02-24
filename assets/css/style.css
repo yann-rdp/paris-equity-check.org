@@ -982,6 +982,9 @@ fieldset ul li.space {
   clear: none;
   display: inline-block;
 }
+.form-group input {
+  border-radius: 0;
+}
 /* Plugins */
 /* Validation engine */
 .formError {
@@ -3293,11 +3296,6 @@ html.no-flexbox .equal-h > div {
   color: #1f2624;
   padding: 20px 20px 20px 70px;
   height: 60px;
-  font-family: "skolar-latin", sans-serif;
-  font-size: 14px;
-  font-size: 1.4rem;
-  line-height: 1.7em;
-  font-weight: 400;
   letter-spacing: 3px;
   font-weight: 600;
   line-height: 20px;
@@ -4265,7 +4263,6 @@ article a:focus img {
 }
 .controls {
   position: relative;
-  margin-bottom: 40px;
 }
 .controls .options {
   margin: 0 15px 0 0;
@@ -4287,6 +4284,18 @@ article a:focus img {
     bottom: 90px;
     right: 0;
   }
+}
+.customMarker {
+  display: none;
+  padding: 10px 0;
+  margin: 10px 0 20px 0 ;
+  border: 1px solid rgba(66, 66, 66, 0.3);
+}
+.customMarker label {
+  display: inline-block;
+}
+.customMarker button {
+  margin-top: 30px;
 }
 .how-to-read {
   display: none;

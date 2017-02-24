@@ -68,6 +68,9 @@ esign.init = function () {
 	esign.map();
     esign.starListeners();
     esign.qtip();
+
+    $('#custom-pledge-close').fadeOut();
+    $('#how-to-read-close').fadeOut();
 };
 
 esign.isMobile = function () {
@@ -360,7 +363,7 @@ esign.map = function () {
         $('.colour-legend').removeClass('hidden');
     });
     $('#export-map-pdf').click(function () {
-        $map.exportChartLocal({
+        $map.exportChart({
             type: 'application/pdf'
         });
         $('.colour-legend').removeClass('hidden');
@@ -412,8 +415,24 @@ esign.drawMap = function(data) {
             filename: $filenameMap,
             fallbackToExportServer: true,
             chartOptions: {
+                credits: {
+                    enabled: true,
+                    href:"#",
+                    position: {
+                        align:"right",
+                        verticalAlign:"bottom",
+                        x: -10,
+                        y: -5
+                    },
+                    style: {"cursor": "default", "font-size":"6pt"},
+                    text:"From Paris-equity-check.org, based on Robiou du Pont et al. (2017), Nature Climate Change"
+                },
                 chart:{
-                    events: null
+                    events: {
+                        load: function(event) {
+                            this.renderer.image('assets/images/legend.png',10,300,100,85).add();
+                        }
+                    }
                 }
             }
         },
@@ -423,7 +442,7 @@ esign.drawMap = function(data) {
                 fontFamily: 'Open Sans'
             },
             backgroundColor: '#f6faff',
-            pinchType: 'none'
+            pinchType: 'none',
         },
         credits: false,
         mapNavigation: {
@@ -872,7 +891,7 @@ esign.createChart = function(pathAverages, pathMin, pathMax, year) {
 		var dataIndcHigh = dataAverages.filter(getIndcHigh);
 		indcHighAbs = dataIndcHigh[0]['INDC%'];
 
-        var cerAvg = [], gdrAvg = [], capAvg = [], cpcAvg = [], epcAvg = [];
+        var cerAvg = [], gdrAvg = [], capAvg = [], cpcAvg = [], epcAvg = [], histAvg = [];
 
         if($absolute) {
             for(var i = yearMin; i <= yearMax; i++) {
@@ -893,15 +912,19 @@ esign.createChart = function(pathAverages, pathMin, pathMax, year) {
             indcRel = ((indcAbs/dataCapAvg[0][year]))*100;
         }
 
+        for(var i = 0; i <= 20; i++) {
+            histAvg.push(capAvg[i]);
+        }
+
         $.getJSON(pathMin, function(dataMin) {
             $.getJSON(pathMax, function(dataMax) {
-                calcultateRange(dataMin, dataMax, cerAvg, gdrAvg, capAvg, cpcAvg, epcAvg);
+                calcultateRange(dataMin, dataMax, cerAvg, gdrAvg, capAvg, cpcAvg, epcAvg, histAvg);
             });
         });
     }
 
 	// Ranges
-    function calcultateRange(dataMi, dataMa, cerAvg, gdrAvg, capAvg, cpcAvg, epcAvg) {
+    function calcultateRange(dataMi, dataMa, cerAvg, gdrAvg, capAvg, cpcAvg, epcAvg, histAvg) {
 
         function getCountryIso(value) {
             return value['iso-a3'] == $isoSelected;
@@ -980,10 +1003,10 @@ esign.createChart = function(pathAverages, pathMin, pathMax, year) {
 			divider = 1000000;
 		}
 
-        drawChart(cerAvg, gdrAvg, capAvg, cpcAvg, epcAvg, cerRange, gdrRange, capRange, cpcRange, epcRange, unit);
+        drawChart(cerAvg, gdrAvg, capAvg, cpcAvg, epcAvg, cerRange, gdrRange, capRange, cpcRange, epcRange, unit, histAvg);
     }
 
-    function drawChart(cerAvg, gdrAvg, capAvg, cpcAvg, epcAvg, cerRange, gdrRange, capRange, cpcRange, epcRange, unit) {
+    function drawChart(cerAvg, gdrAvg, capAvg, cpcAvg, epcAvg, cerRange, gdrRange, capRange, cpcRange, epcRange, unit, histAvg) {
 
 		var cerAverageText = 'CER', gdrAverageText = 'GDR', capAverageText = 'CAP', cpcAverageText = 'CPC', epcAverageText = 'EPC',
 			cerRangeText = 'CER range', gdrRangeText = 'GDR range', capRangeText = 'CAP range', cpcRangeText = 'CPC range', epcRangeText = 'EPC range',
@@ -1058,7 +1081,7 @@ esign.createChart = function(pathAverages, pathMin, pathMax, year) {
                 backgroundColor: '#ffffff'
 			},
             title: {
-                text: $countrySelected,
+                text: $countrySelected + " - " + temp,
                 useHTML: true
             },
             subtitle: {
@@ -1120,7 +1143,21 @@ esign.createChart = function(pathAverages, pathMin, pathMax, year) {
 						text: 'export'
 					}
 				},
-                fallbackToExportServer: true
+                fallbackToExportServer: true,
+                chartOptions:{
+                    credits: {
+                        enabled: true,
+                        href:"#",
+                        position: {
+                            align:"right",
+                            verticalAlign:"bottom",
+                            x: -10,
+                            y: -190,
+                        },
+                        style: {"cursor": "default", "font-size":"6pt"},
+                        text:"From Paris-equity-check.org, based on Robiou du Pont et al. (2017), Nature Climate Change"
+                    }
+                }
             },
             credits: false,
             plotOptions: {
@@ -1198,7 +1235,7 @@ esign.createChart = function(pathAverages, pathMin, pathMax, year) {
                 zoneAxis: 'x',
                 zones: [{
                     value: 2010,
-                    color: '#000000'
+                    color: 'transparent'
                 }]
             },{
                 name: capRangeText,
@@ -1262,8 +1299,26 @@ esign.createChart = function(pathAverages, pathMin, pathMax, year) {
                 lineColor: '#8bced7',
                 fillOpacity: 0.3,
                 zIndex: 1
+            },{
+                name: 'Historical emissions',
+                data: histAvg,
+                zIndex: 1,
+                color: 'transparent',
+                marker: {
+                    lineWidth: 0,
+                    radius: 0,
+                    symbol: 'circle',
+                    lineColor: 'transparent'
+                },
+                zoneAxis: 'x',
+                zones: [{
+                    value: 2010,
+                    color: '#000000'
+                }]
             }]
         };
+
+
 
 		chart = new Highcharts.Chart(chartOptions);
 
@@ -1273,8 +1328,12 @@ esign.createChart = function(pathAverages, pathMin, pathMax, year) {
 
 			txt += '<span class="tooltip-year">' + this.x + '</span><br>';
 
-            if(this.x <= year) {
-				txt += 'Historical emissions: ' + (this.y/divider).toPrecision(3);
+            if(this.x <= 2010) {
+                if(typeof this.point === 'undefined') {
+                    txt += 'Historical emissions: ' + (this.y/divider).toPrecision(3);
+                } else {
+                    txt += 'Custom pledge: ' + (this.y/divider).toPrecision(3);
+                }
             } else {
 				if($absolute) {
 					Highcharts.each(points, function(p, i){
@@ -1342,22 +1401,89 @@ esign.createChart = function(pathAverages, pathMin, pathMax, year) {
 				[2030, indcRel]
 			];
 		}
-		chart.addSeries({
-			name: '(I)NDC',
-			data: indcData,
-			type: 'scatter',
-			zIndex: 999,
-			marker: {
-				lineWidth: 0,
-				radius: 8,
-				lineColor: 'white',
-				fillColor: 'black'
-			},
-			className: 'indc-tour',
+
+        chart.addSeries({
+            name: '(I)NDC',
+            data: indcData,
+            type: 'scatter',
+            zIndex: 999,
+            marker: {
+                symbol: 'url(assets/images/NDC.png)',
+                lineWidth: 2,
+                radius: 8,
+                lineColor: 'black',
+                fillColor: 'black'
+            },
+            className: 'indc-tour',
             showInLegend: false
-		});
+        });
+
+        //add new pledge
+        chart.addSeries({
+            visible:false,
+            name: 'Custom pledge',
+            data: indcData,
+            type: 'scatter',
+            zIndex: 999,
+            marker: {
+                symbol: 'url(assets/images/newMarker.png)'
+            },
+            className: 'indc-tour',
+            showInLegend: false
+        });
+
+		var updateCustomPledge = function (year, emission) {
+
+		    $(chart.series).each(function(i, serie){
+		       if(serie.name === 'Custom pledge'){
+
+		           if(unit === "GtCO2eq") {
+		               emission*=1000000;
+                   }
+		           if(unit === "MtCO2eq") emission*=1000;
+
+		           serie.setData([[year,emission]]);
+		           serie.show();
+               }
+            });
+
+        };
+
+		// showPledgeForm
+        $('#addPlegde').click(function () {
+
+            $('.customMarker').fadeIn();
+            $('#custom-pledge-close').fadeIn();
+
+            //console.log("toggling");
+            //$('.customMarker').slideToggle(300, function () {});
+
+        });
+
+        $('#custom-pledge-close').click(function () {
+
+            $('.customMarker').fadeOut();
+            $('#custom-pledge-close').fadeOut();
+        });
+
+        $('#updatePledge').click(function () {
+
+            var year = $('#year');
+            var emission = $('#emissions');
+
+            var yearVal = year.val();
+            var emissionVal = emission.val();
+
+            if($.isNumeric(year.val()) && $.isNumeric(emission.val())){
+                $('.customMarker').fadeOut();
+                $('#custom-pledge-close').fadeOut();
+                updateCustomPledge(parseFloat(yearVal), parseFloat(emissionVal));
+            }
+        });
 
 		// Exports
+        esign.resetExportListeners();
+
 		$('#export-chart-print').click(function () {
 			chart.print();
 		});
@@ -1464,11 +1590,21 @@ esign.createChart = function(pathAverages, pathMin, pathMax, year) {
 		});
 
 		// Show help
-        $('.read-button').click(function () {
-            $('.how-to-read').slideToggle(300, function () {
-                // var topPos = document.getElementById('how-to-read').offsetTop;
-                // document.getElementById('graph').scrollTop = topPos-10;
-            });
+        $('#openRead').click(function () {
+
+
+            $('.how-to-read').fadeIn();
+            $('#how-to-read-close').fadeIn();
+
+            // $('.how-to-read').slideToggle(300, function () {
+            //     // var topPos = document.getElementById('how-to-read').offsetTop;
+            //     // document.getElementById('graph').scrollTop = topPos-10;
+            // });
+        });
+
+        $('#how-to-read-close').click(function () {
+            $('.how-to-read').fadeOut();
+            $('#how-to-read-close').fadeOut();
         });
 
 		// Fill table
@@ -1498,7 +1634,7 @@ esign.createChart = function(pathAverages, pathMin, pathMax, year) {
             return number;
         }
 
-        console.log(calc(cerAvg, 2030, year, 1));
+        // console.log(calc(cerAvg, 2030, year, 1));
 
 		$('.data-table__2030 .row-cer .avg').html((cerAvg[2030-1990][1] / divider).toPrecision(3));
 		$('.data-table__2030 .row-gdr .avg').html((gdrAvg[2030-1990][1] / divider).toPrecision(3));
@@ -1619,14 +1755,21 @@ esign.resetState = function() {
     $('#absolute').removeClass('active');
     $('#chart').empty();
     $('#relative').html('Relative to 2010 <span class="caret"></span><span class="sr-only">Toggle Dropdown</span>');
+    $('.read-button').unbind( "click" );
+    $('.how-to-read').css('display', 'none');
+    esign.resetExportListeners();
+};
+
+/* Unbind export listeners */
+esign.resetExportListeners = function() {
     $('#export-chart-print').unbind( "click" );
     $('#export-chart-png').unbind( "click" );
     $('#export-chart-jpg').unbind( "click" );
     $('#export-chart-pdf').unbind( "click" );
     $('#export-chart-svg').unbind( "click" );
-    $('.read-button').unbind( "click" );
-    $('.how-to-read').css('display', 'none');
 };
+
+
 
 // initialize on docready
 $(esign.init);

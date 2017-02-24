@@ -1,0 +1,48 @@
+/*
+ * Tables.less
+ * Tables for, you guessed it, tabular data
+ * ---------------------------------------- */
+
+table {
+	width: 100%; padding: 0; border-collapse: separate; border-spacing: 0; empty-cells: show; margin: 0 0 1.5em;
+	th, td {
+		padding: 11px 6px; text-align: left; vertical-align: middle; border-bottom: 1px solid #ddd; line-height: 1.5em;
+		p:last-child { margin-bottom: 0; }
+	}
+	th { font-weight: bold; border-bottom: 2px solid #ddd; }
+
+
+}
+
+.equity-table {
+
+	.star--cer:after { color: #ee7e30; }
+	.star--gdr:after { color: #70ae46; }
+	.star--cap:after { color: #44546a; }
+	.star--cpc:after { color: #fdc014; }
+	.star--epc:after { color: #5d9bd3; }
+
+
+	td:last-child {
+		width: 50%;
+	}
+
+
+	@media @mobileSmall {
+		text-align: center;
+		tr {
+			margin-bottom: 20px;
+			&:first-child {
+				display: none;
+			}
+		}
+		tr, td {
+			display: block;
+			text-align: center;
+		}
+		td:last-child {
+			width: 100%; border: none;
+		}
+
+	}
+}
