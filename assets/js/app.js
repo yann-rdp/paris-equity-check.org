@@ -32672,7 +32672,7 @@ esign.createWarmingChart = function(color = esign.cache.color.black) {
   });
 
   chart.addSeries({
-    name: 'NDW high assessment (with unconditional pledges)',
+    name: 'NDC high assessment (with unconditional pledges)',
     data: chartDotHighData,
     type: 'scatter',
     zIndex: 999,
@@ -32687,7 +32687,7 @@ esign.createWarmingChart = function(color = esign.cache.color.black) {
   });
 
   chart.addSeries({
-    name: 'NDW average assessment',
+    name: 'NDC average assessment',
     data: chartDotData,
     type: 'scatter',
     zIndex: 999,
@@ -33087,6 +33087,7 @@ require([
 });
 
 define("../resources/assets/js/esign", function(){});
+
 
 
 //# sourceMappingURL=app.js.map
