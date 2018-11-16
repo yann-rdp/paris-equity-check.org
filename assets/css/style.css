@@ -10646,7 +10646,6 @@ article a:focus img {
   width: auto;
   display: inline-block;
   margin: 0 auto;
-  /*background-color: rgba(255,255,255,0.3); .box-shadow(1px 1px 5px 0px rgba(0,0,0,0.3));*/
 }
 .map-legend__inner .modal-button {
   font-size: 14px;
@@ -10654,6 +10653,16 @@ article a:focus img {
   padding: 5px 0 2px;
   margin-bottom: 5px;
   display: inline-block;
+}
+.modal-button {
+  border-bottom: 1px solid transparent;
+}
+.modal-button:hover,
+.modal-button:focus {
+  border-bottom: 1px solid #8F7631;
+}
+.modal-button--title {
+  line-height: 1.6em;
 }
 .map-legend__left {
   position: relative;
@@ -10722,9 +10731,13 @@ article a:focus img {
   font-size: 1.2rem;
 }
 .colour-legend--warming .colour-legend_ambition {
-  width: 120px;
-  padding: 0 !important;
+  width: 130px;
+  padding: 0 0 3px !important;
   text-align: center;
+  font-size: 13px;
+  font-size: 1.3rem;
+  bottom: -18px;
+  left: -4px;
 }
 .colour-legend--warming .colour-legend_ambition:after,
 .colour-legend--warming .colour-legend_ambition:before {
@@ -10737,7 +10750,7 @@ article a:focus img {
   display: block;
   position: absolute;
   top: 17px;
-  left: 15px;
+  left: 17px;
 }
 .colour-legend--warming .colour-legend__arrow:after {
   position: absolute;

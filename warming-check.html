@@ -60,7 +60,7 @@
   
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,600">
   <link rel="stylesheet" href="https://use.typekit.net/xbx2tkc.css">
-  <link rel="stylesheet" href="assets/css/style.css?v03">
+  <link rel="stylesheet" href="assets/css/style.css?v04">
 
   
   <script>
@@ -91,7 +91,7 @@
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav">
-            <li><a href="equity-check.html">Equity Map</a></li>
+            <li><a href="multi-equity-map.html">Equity Map</a></li>
             <li class="active"><a href="warming-check.html">Pledged Warming Map</a></li>
             <li><a href="the-science.html">The Science</a></li>
           </ul>
@@ -111,7 +111,7 @@
         <div class="toolbar-top">
           <div class="row mb0">
             <div class="one-half one-half-mobile">
-              <h1><a href="#paris-equity-check" class="modal-button">How much global warming is each country’s pledge leading to? <span class="icon-info" aria-hidden="true"></span></a></h1>
+              <h1><a href="#paris-equity-check" class="modal-button modal-button--title">How much global warming is each country’s pledge leading to? <span class="icon-info" aria-hidden="true"></span></a></h1>
             </div>
             <div class="one-half one-half-mobile">
               <div class="export-map dropdown mt0">
@@ -179,7 +179,7 @@
             </div>
           </div>
           <div class="map-legend__inner">
-            <div class="btn-group temperature-toggle" role="group" aria-label="Pledge/NDC assessment">
+            <div class="btn-group temperature-toggle" role="group" aria-label="Ambition of pledges">
               <div class="btn btn-default" id="low">Low</div>
               <div class="btn btn-default active" id="avg">Average</div>
               <div class="btn btn-default" id="high">High</div>
@@ -319,16 +319,28 @@
             </div>
           </div>
 
+
+          <div class="">
+            <a id="openRead2" class="" href="#">More information <span class="icon-info" aria-hidden="true"></span></a>
+            <a id="how-to-read-close2" class="right" href="#"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
+
+            <div id="how-to-read2" class="how-to-read mb100">
+              <p>The national emissions scenarios provided here result from the hybrid allocation where each country uses the least-stringent of three equity allocations (historical responsibility, capability or equality) applied to a 2°C-scenario and 1.5°C-scenario. The 2°C-scenario features a likely (>66%) chance to stay below 2°C over the century and a median (>50%) chance to be below 1.7°C in 2100. The 1.5°C-scenario features a median chance to be below 1.5°C in 2100 and allow a potential overshoot of 1.5°C before. Securing a likely chance to stay below 1.5°C of warming requires greater mitigation efforts, compared to the trajectories presented here. The underlying global emissions scenarios and methods are available
+                <a href="https://doi.org/10.1038/s41467-018-07223-9" target="_blank" rel="noopener">here</a>.</p>
+              <p>The 2030-values of these national emissions trajectories may differ from the values provided in the first graphic above, which relies on a range of global emissions scenarios. This difference illustrate the difference in the underlying assumptions of global emissions scenarios that feature a range of 2030-emissions values for a given global warming response (more details
+                <a href="https://doi.org/10.1002/2017EF000781" target="_blank" rel="noopener">here</a> and <a
+                  href="https://doi.org/10.1029/2018EF000865" target="_blank" rel="noopener">here</a>).</p>
+              <p>Emissions from land use (LULUCF emissions) are not included since no universal accounting method of positive or negative LULUCF emissions is currently in place and since they are not considered by all parties as part of the emissions scope to be negotiated.</p>
+            </div>
+          </div>
+
+
+
           <div class="mt40 mb40">
-            <p>The national emissions scenarios provided here result from the hybrid allocation where each country uses the least-stringent of three equity allocations (historical responsibility, capability or equality) applied to a 2°C-scenario and 1.5°C-scenario. The 2°C-scenario features a likely (>66%) chance to stay below 2°C over the century and a median (>50%) chance to be below 1.7°C in 2100. The 1.5°C-scenario features a median chance to be below 1.5°C in 2100 and allow a potential overshoot of 1.5°C before. Securing a likely chance to stay below 1.5°C of warming requires greater mitigation efforts, compared to the trajectories presented here. The underlying global emissions scenarios and methods are available
-              <a href="https://doi.org/10.1038/s41467-018-07223-9" target="_blank" rel="noopener">here</a>.</p>
-            <p>The 2030-values of these national emissions trajectories may differ from the values provided in the first graphic above, which relies on a range of global emissions scenarios. This difference illustrate the difference in the underlying assumptions of global emissions scenarios that feature a range of 2030-emissions values for a given global warming response (more details
-              <a href="https://doi.org/10.1002/2017EF000781" target="_blank" rel="noopener">here</a> and <a
-                href="https://doi.org/10.1029/2018EF000865" target="_blank" rel="noopener">here</a>).</p>
-            <p>Emissions from land use (LULUCF emissions) are not included since no universal accounting method of positive or negative LULUCF emissions is currently in place and since they are not considered by all parties as part of the emissions scope to be negotiated.</p>
             <p>“NDC factsheets” assessment from <em>Malte Meinshausen & Ryan Alexander</em>, 2015, at:
               <br><a href="http://www.climate-energy-college.net/ndc-indc-factsheets" target="_blank" rel="noopener noreferrer">www.climate-energy-college.net/ndc-indc-factsheets</a>.</p>
           </div>
+
 
           <div class="fairness mb60">
             <h2 class="a-c">Fairness statement contained in <span class="indc-tip">NDC</span></h2>
@@ -415,7 +427,7 @@
         <div class="va-m">
           <div class="md-content-inner">
             <div class="container">
-              <h2 class="h1"><a href="the-science.html">Pledge/NDC assessment</a></h2>
+              <h2 class="h1"><a href="the-science.html">Ambition of pledges</a></h2>
 
               <p>Paris-Equity-Check.org assesses the ambition of countries’ <a href="the-science.html#chapter2" target="_blank">Nationally Determined Contribution (NDC)</a>, following the 2030 emissions that they imply.</p>
               <p>In their NDC, countries make unconditional pledges and sometimes more ambitious pledges conditional on international support or additional ambition.</p>
@@ -479,8 +491,10 @@
               <p><b>More information in the underlying <a href="https://doi.org/10.1038/s41467-018-07223-9" target="_blank" rel="noopener">peer-reviewed study</a>.</b></p>
 
               <div class="a-c mb60">
-                <img src="assets/images/content/Article behind the Pledged Warming Map.png" alt="Article behind the Pledged Warming Map" width="200" class="mb10">
-                <p class="small">Article behind the <b>Pledged Warming Map</b></p>
+                <a href="https://doi.org/10.1038/s41467-018-07223-9" target="_blank" rel="noopener">
+                  <img src="assets/images/content/Article behind the Pledged Warming Map.png" alt="Article behind the Pledged Warming Map" width="200" class="mb10">
+                  <p class="small">Article behind the <b>Pledged Warming Map</b></p>
+                </a>
               </div>
             </div>
           </div>
@@ -493,6 +507,6 @@
     </main>
   </div>
 
-  <script src="assets/js/app.js?v-03"></script>
+  <script src="assets/js/app.js?v-04"></script>
 </body>
 </html>

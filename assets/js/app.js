@@ -30345,6 +30345,7 @@ esign.init = function () {
 
   $('#custom-pledge-close').fadeOut();
   $('#how-to-read-close').fadeOut();
+  $('#how-to-read-close2').fadeOut();
 };
 
 esign.cacheSelectors = function () {
@@ -31884,13 +31885,23 @@ esign.createChart = function(year) {
 
     // Show help
     $('#openRead').click(function () {
-      $('.how-to-read').fadeIn();
+      $('#how-to-read').fadeIn();
       $('#how-to-read-close').fadeIn();
     });
 
     $('#how-to-read-close').click(function () {
-      $('.how-to-read').fadeOut();
+      $('#how-to-read').fadeOut();
       $('#how-to-read-close').fadeOut();
+    });
+
+    $('#openRead2').click(function () {
+      $('#how-to-read2').fadeIn();
+      $('#how-to-read-close2').fadeIn();
+    });
+
+    $('#how-to-read-close2').click(function () {
+      $('#how-to-read2').fadeOut();
+      $('#how-to-read-close2').fadeOut();
     });
 
     // Fill table
@@ -32049,7 +32060,9 @@ esign.resetState = function() {
   $('#custom-pledge-close').unbind( "click" );
   $('#updatePledge').unbind( "click" );
   $('#openRead').unbind( "click" );
+  $('#openRead2').unbind( "click" );
   $('#how-to-read-close').unbind( "click" );
+  $('#how-to-read-close2').unbind( "click" );
 
   esign.resetExportListeners();
 };
@@ -32782,13 +32795,23 @@ esign.createWarmingChart = function(color = esign.cache.color.black) {
 
   // Show help
   $('#openRead').click(function () {
-    $('.how-to-read').fadeIn();
+    $('#how-to-read').fadeIn();
     $('#how-to-read-close').fadeIn();
   });
 
   $('#how-to-read-close').click(function () {
-    $('.how-to-read').fadeOut();
+    $('#how-to-read').fadeOut();
     $('#how-to-read-close').fadeOut();
+  });
+
+  $('#openRead2').click(function () {
+    $('#how-to-read2').fadeIn();
+    $('#how-to-read-close2').fadeIn();
+  });
+
+  $('#how-to-read-close2').click(function () {
+    $('#how-to-read2').fadeOut();
+    $('#how-to-read-close2').fadeOut();
   });
 
 };
