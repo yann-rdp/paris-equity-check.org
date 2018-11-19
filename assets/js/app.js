@@ -32206,7 +32206,7 @@ esign.drawWarmingMap = function(data) {
         chart:{
           events: {
             load: function(event) {
-              this.renderer.image('assets/images/legend.png',10,300,100,85).add();
+              this.renderer.image('assets/images/legend-warming.png',10,260,100,129).add();
             }
           }
         }
