@@ -1,7 +1,7 @@
 
 
 <!doctype html>
-<html class="no-js" lang="nl">
+<html class="no-js" lang="nl" data-version="15">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -60,7 +60,7 @@
   
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,600">
   <link rel="stylesheet" href="https://use.typekit.net/xbx2tkc.css">
-  <link rel="stylesheet" href="assets/css/style.css?v09">
+  <link rel="stylesheet" href="assets/css/style.css?v=15">
 
   
   <script>
@@ -179,13 +179,23 @@
             </div>
           </div>
           <div class="map-legend__inner">
-            <div class="btn-group temperature-toggle" role="group" aria-label="Ambition of pledges">
+            <div class="btn-group temperature-toggle hide" role="group" aria-label="Ambition of pledges">
               <div class="btn btn-default" id="low">Low</div>
               <div class="btn btn-default active" id="avg">Average</div>
               <div class="btn btn-default" id="high">High</div>
             </div>
+            <div class="btn-group temperature-toggle-updated" role="group" aria-label="Ambition of pledges">
+              <div class="btn btn-default active" id="low-updated">Unconditional</div>
+              <div class="btn btn-default" id="high-updated">Conditional</div>
+            </div>
             <div>
-              <a href="#temperature-goal" title="Ambition of pledges" class="modal-button">Ambition of pledges <span class="icon-info" aria-hidden="true"></span></a>
+              <div class="btn-group updated-toggle" role="group" aria-label="First or updated NDC">
+                <div class="btn btn-default" id="first-ndc">First NDC</div>
+                <div class="btn btn-default active" id="updated-ndc">Updated NDC</div>
+              </div>
+            </div>
+            <div class="map-legend__label">
+              <a href="#temperature-goal" title="What does this mean?" class="modal-button">What does this mean? <span class="icon-info" aria-hidden="true"></span></a>
             </div>
           </div>
         </div>
@@ -216,9 +226,7 @@
           <div id="chart"></div>
 
           <div class="controls controls--w1">
-
             <div class="btn-group dropup options">
-              
               <button id="relative" type="button" class="btn btn-default dropdown-toggle active" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Relative to 2010 <span class="caret"></span>
                 <span class="sr-only">Toggle Dropdown</span>
@@ -262,7 +270,7 @@
               </ul>
             </div>
           </div>
-          <div class="mb80">
+          <div class="mt20 mb80">
             <div class="">
               <a id="addPlegde" class="" href="#">Enter a custom pledge.</a> 	<a id="custom-pledge-close" class="right" href="#"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
 
@@ -277,16 +285,7 @@
               </div>
             </div>
 
-            <!--<div class="">
-              <a id="openRead" class="" href="#">How to read this graph? <span class="icon-info" aria-hidden="true"></span></a>
-              <a id="how-to-read-close" class="right" href="#"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
-
-              <div id="how-to-read" class="how-to-read mb100">
-                <img src="assets/images/content/how-to-read-this-graph.jpg" alt="How to read this graph?">
-              </div>
-            </div>-->
-
-            <div class="">
+            <div class="mb20">
               <a id="openRead" class="" href="#">More information <span class="icon-info" aria-hidden="true"></span></a>
               <a id="how-to-read-close" class="right" href="#"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
 
@@ -295,6 +294,13 @@
                 <p>The relationship between the 2100 global warming and the national 2030-emissions relies on a range of global emissions scenarios. The underlying global emissions scenarios and methods are available
                   <a href="https://doi.org/10.1038/s41467-018-07223-9" target="_blank" rel="noopener">here</a>.</p>
                 <p>Emissions from land use (LULUCF emissions) are not included since no universal accounting method of positive or negative LULUCF emissions is currently in place and since they are not considered by all parties as part of the emissions scope to be negotiated.</p>
+              </div>
+            </div>
+
+            <div class="a-c">
+              <div class="btn-group updated-toggle" role="group" aria-label="First or updated NDC">
+                <div class="btn btn-default" id="first-ndc-graph">First NDC</div>
+                <div class="btn btn-default active" id="updated-ndc-graph">Updated NDC</div>
               </div>
             </div>
           </div>
@@ -352,7 +358,7 @@
           </div>
 
 
-          <div class="">
+          <div class="mt20">
             <a id="openRead2" class="" href="#">More information <span class="icon-info" aria-hidden="true"></span></a>
             <a id="how-to-read-close2" class="right" href="#"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
 
@@ -377,53 +383,124 @@
           <div class="fairness mb60">
             <h2 class="a-c">Fairness statement contained in <span class="indc-tip">NDC</span></h2>
 
-            <div class="row">
-              <div class="one-fourth">
-                <h3>Description of fairness</h3>
+            <div class="fairness-statement-first hide">
+              <div class="row">
+                <div class="one-fourth">
+                  <h3>Description of fairness</h3>
+                </div>
+                <div class="three-fourth">
+                  <div class="description description-f">Not Specified</div>
+                </div>
               </div>
-              <div class="three-fourth">
-                <div class="description description-f">Not Specified</div>
+
+              <div class="row">
+                <div class="one-fourth">
+                  <h3>Description of ambition</h3>
+                </div>
+                <div class="three-fourth">
+                  <div class="description description-a">Not Specified</div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="one-fourth">
+                  <h3>Description of how it contributes towards achieving the objective of the Convention</h3>
+                </div>
+                <div class="three-fourth">
+                  <div class="description description-c">Not Specified</div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="one-fourth">
+                  <h3>Conditionality of the NDC</h3>
+                </div>
+                <div class="three-fourth">
+                  <div class="description description-indc">Not Specified</div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="one-fourth">
+                  <h3>Last updated</h3>
+                </div>
+                <div class="three-fourth">
+                  <div class="description description-updated">Not Specified</div>
+                </div>
               </div>
             </div>
 
-            <div class="row">
-              <div class="one-fourth">
-                <h3>Description of ambition</h3>
-              </div>
-              <div class="three-fourth">
-                <div class="description description-a">Not Specified</div>
-              </div>
-            </div>
+            <div class="fairness-statement-updated">
+              <h3>6. How the Party considers that its nationally determined contribution is fair and ambitious in the light of its national circumstances</h3>
 
-            <div class="row">
-              <div class="one-fourth">
-                <h3>Description of how it contributes towards achieving the objective of the Convention</h3>
+              <div class="row">
+                <div class="one-fourth">
+                  <h3>(a) How the Party considers that its nationally determined contribution is fair and ambitious in the light of its national circumstances</h3>
+                </div>
+                <div class="three-fourth">
+                  <div class="description description-6a">Not Specified</div>
+                </div>
               </div>
-              <div class="three-fourth">
-                <div class="description description-c">Not Specified</div>
-              </div>
-            </div>
 
-            <div class="row">
-              <div class="one-fourth">
-                <h3>Conditionality of the NDC</h3>
+              <div class="row">
+                <div class="one-fourth">
+                  <h3>(b) Fairness considerations, including reflecting on equity; </h3>
+                </div>
+                <div class="three-fourth">
+                  <div class="description description-6b">Not Specified</div>
+                </div>
               </div>
-              <div class="three-fourth">
-                <div class="description description-indc">Not Specified</div>
-              </div>
-            </div>
 
-            <div class="row">
-              <div class="one-fourth">
-                <h3>Last updated</h3>
+              <div class="row">
+                <div class="one-fourth">
+                  <h3>(c) How the Party has addressed Article 4, paragraph 3, of the Paris Agreement;  </h3>
+                </div>
+                <div class="three-fourth">
+                  <div class="description description-6c">Not Specified</div>
+                </div>
               </div>
-              <div class="three-fourth">
-                <div class="description description-updated">Not Specified</div>
+
+              <div class="row">
+                <div class="one-fourth">
+                  <h3>(d) How the Party has addressed Article 4, paragraph 4, of the Paris Agreement</h3>
+                </div>
+                <div class="three-fourth">
+                  <div class="description description-6d">Not Specified</div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="one-fourth">
+                  <h3>(e) Not applicable, as applicable only to LDCs and Small Island Developing States</h3>
+                </div>
+                <div class="three-fourth">
+                  <div class="description description-6e">Not Specified</div>
+                </div>
+              </div>
+
+              <h3>7. How the Party considers that its nationally determined contribution is fair and ambitious in the light of its national circumstances</h3>
+
+              <div class="row">
+                <div class="one-fourth">
+                  <h3>(a) How the nationally determined contribution contributes towards achieving the objective of the Convention  as set out in its Article 2</h3>
+                </div>
+                <div class="three-fourth">
+                  <div class="description description-7a">Not Specified</div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="one-fourth">
+                  <h3>(b) How the nationally determined contribution contributes towards Article 2, paragraph 1(a), and Article 4, paragraph 1, of the Paris Agreement.</h3>
+                </div>
+                <div class="three-fourth">
+                  <div class="description description-7b">Not Specified</div>
+                </div>
               </div>
             </div>
           </div>
 
-          <div>
+          <div class="fairness-statement-credits">
             <p>Fairness statement downloaded on October 28th 2016 from: <br>WRI, CAIT Climate Data Explorer. 2016. CAIT Paris Contributions Map. Washington, DC: World Resources Institute. (<a
                 href="http://cait.wri.org/indcs/" target="_blank" rel="noopener noreferrer">http://cait.wri.org/indcs/</a>). <br>The original
               <a href="http://www4.unfccc.int/submissions/indc/Submission%20Pages/submissions.aspx" target="_blank" rel="noopener noreferrer">NDCs</a> and
@@ -461,8 +538,7 @@
             <div class="container">
               <h2 class="h1"><a href="the-science.html">Ambition of pledges</a></h2>
 
-              <p>Paris-Equity-Check.org assesses the ambition of countries’ <a href="the-science.html#chapter2" target="_blank">Nationally Determined Contribution (NDC)</a>, following the 2030 emissions that they imply.</p>
-              <p>In their NDC, countries make unconditional pledges and sometimes more ambitious pledges conditional on international support or additional ambition.</p>
+              <p>Paris-Equity-Check.org assesses the ambition of countries’ <a href="the-science.html#chapter2" target="_blank">Nationally Determined Contribution (NDC)</a>, following the 2030 emissions that they imply. In their NDC, countries make unconditional pledges and sometimes more ambitious pledges conditional on international support or additional ambition.</p>
               <p>Some pledges contain clear quantified mitigation economy-wide targets. However, many pledges are described ambiguously and include reduction below reference trajectories, GDP and energy intensity targets. This ambiguousness results in an
                 <a href="https://www.nature.com/articles/ncomms15748" target="_blank" rel="noopener">uncertainty</a> regarding the quantification of the 2030-emissions implied by NDCs.</p>
               <p>The assessment of NDCs results in a range of 2030-emissions – often a larger for developing countries. Here, the range of
@@ -470,16 +546,33 @@
 
               <ul>
                 <li>
-                  <p><b>‘Low’</b> ambition (with higher 2030-emissions) that reflects a pessimistic quantification of unconditional pledges.</p>
+                  <p><b>‘Unconditional’</b> ambition (with higher 2030-emissions) that reflects quantification of unconditional pledges, that targets that are not conditional on receiving finance. Only unconditional targets can be assessed on an equity and ambition metric as the effort provided by a country alone.</p>
                 </li>
                 <li>
-                  <p><b>‘High’</b> ambition (with lower 2030-emissions) that reflects an optimistic quantification of pledges, using conditional pledges when available.</p>
-                </li>
-                <li>
-                  <p><b>‘Average’</b>, the average of the ‘Low’ and ‘High’ quantifications.</p>
+                  <p><b>‘Conditional’</b> ambition (with lower 2030-emissions) that reflects an quantification of conditional pledges. The conditional part of the pledge requires external contributions, potentially from developed to developing countries, that should be credited to the supporting country towards the achievement of its fair share or equity scenarios (provided here). Conditional NDCs can be compared to domestic emissions scenarios (not provided in this website) possibly informed by global socio-economic models and indicators such as those reported in the IPCC.</p>
                 </li>
               </ul>
 
+              <hr>
+
+              <h3>How countries can meet both their <em>equity</em> and <em>domestic</em> scenarios through national measures and international support?</h3>
+
+              <p><em>Domestic</em> scenarios (not provided here) reflect the magnitude of emissions reduction that can be achieved within each country's borders under a economically optimised implementation of mitigation measures from a global emissions scenario, but do not imply that each country is responsible for funding its domestic mitigation measures. These <em>domestic</em> scenarios can be inferred from the global emissions scenarios reviewed in the IPCC reports, including 1.5°C scenarios, whose geographical resolution is often limited to the level of region or large countries.</p>
+              <p>Comparing <em>domestic</em> and <em>equitable</em> scenarios, countries with less stringent <em>domestic</em> scenarios can achieve their more stringent <em>equitable</em> scenarios by supporting mitigation in countries with less stringent stringent <em>equitable</em> scenarios so their territorial emissions align with their <em>domestic</em> scenarios.</p>
+
+              <div class="a-c">
+                <img src="assets/images/content/ambition-figure-1.png" alt="Figure 1" width="600" class="mb10">
+                <p class=""><strong>Figure 1</strong> | Schematic figure for a (developed) country where the equitable scenario (red) is more stringent than the domestic one (blue). brTo achieve the equitable scenario at least costs, that country can support the corresponding emissions reduction (green) through international finance (black) possibly informed by a given price (yellow).</p>
+              </div>
+
+              <div class="a-c">
+                <img src="assets/images/content/ambition-figure-2.png" alt="Figure 2" width="600" class="mb10">
+                <p class=""><strong>Figure 2</strong> | Schematic figure for a (developing) country where the equitable scenario (red) is less stringent than the domestic one (blue). To fund the stringent domestic scenario at least costs, that country can implement mitigation beyond its equitable scenario (green) funded by international support (black) possibly informed by a carbon price (yellow).</p>
+              </div>
+
+              <hr>
+
+              <h3>Land-use emissions</h3>
               <p>Emissions of land-use (Land use, land-use change, and forestry - LULUCF) are included in the quantification of global warming but are not assessed as part of countries NDCs. Land-use emissions are not considered by all parties as part of the emissions scope to be negotiated. Moreover, no universal accounting method of positive or negative LULUCF emissions is currently in place. Therefore, LULUCF emissions were excluded from the global scenarios before allocating their emissions across countries. As a result, the ambition (or lack of ambition) on deforestation is not accounted here.</p>
             </div>
           </div>
@@ -539,6 +632,6 @@
     </main>
   </div>
 
-  <script src="assets/js/app.js?v-09"></script>
+  <script src="assets/js/app.js?v=15"></script>
 </body>
 </html>

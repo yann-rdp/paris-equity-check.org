@@ -1,25 +1,25 @@
 /**
  * OVERVIEW
- * 
+ *
  * IMPORTS
  * reset, core, patterns, plugins
- * 
+ *
  * LAYOUT
  * Grid / Elements (icons, slideshow, other, ...)
  * Header / Main / Footer
  * Content elements (no overrides from main)
  * Pages (page overrides)
- * 
+ *
  * Hooks (IE, ...)
  * Print
  */
 /**
  * GUIDELINES
- * 
+ *
  * CLASSES
  * Naming: lorem-ipsum
  * Abbreviations: Emmet - http://docs.emmet.io/cheat-sheet/ | example: .va-m
- * 
+ *
  * MEDIAQUERIES
  * @media @mobile, @tabletMini, @tablet, @desktop, @netbook, @wide ...
  */
@@ -10273,8 +10273,8 @@ article a:focus img {
   display: none;
 }
 /* =============================================================================
-     PAGES
-     ========================================================================== */
+   PAGES
+   ========================================================================== */
 /* Map */
 .map-wrap {
   position: relative;
@@ -10290,7 +10290,7 @@ article a:focus img {
 }
 .map .highcharts-tooltip span {
   text-align: center;
-  z-index: 9999!important;
+  z-index: 9999 !important;
 }
 .map .highcharts-null-point {
   cursor: auto;
@@ -10389,15 +10389,18 @@ article a:focus img {
     text-align: center;
   }
 }
-.temperature-toggle {
+.temperature-toggle,
+.temperature-toggle-updated {
   margin-bottom: 5px;
 }
-.temperature-toggle + div a {
+.temperature-toggle + div a,
+.temperature-toggle-updated + div a {
   font-size: 14px;
   font-size: 1.4rem;
   padding: 5px 0;
 }
-.temperature-toggle .btn {
+.temperature-toggle .btn,
+.temperature-toggle-updated .btn {
   width: 60px;
   pointer-events: all;
 }
@@ -10654,6 +10657,11 @@ article a:focus img {
   margin-bottom: 5px;
   display: inline-block;
 }
+.map-legend__label {
+  font-size: 14px;
+  font-size: 1.4rem;
+  padding: 5px 0;
+}
 .modal-button {
   border-bottom: 1px solid transparent;
 }
@@ -10724,7 +10732,7 @@ article a:focus img {
   background: #74AB00;
 }
 .colour-legend--warming .colour-legend__row .colour.colour-0 {
-  background: #FFFFFD;
+  background: #F1F1F1;
 }
 .colour-legend--warming .colour-legend__row .colour.colour-0 + span {
   font-size: 12px;
@@ -11148,18 +11156,42 @@ article a:focus img {
   -ms-transform: scale(0.7) translate(3px, 3px);
   transform: scale(0.7) translate(3px, 3px);
 }
-.warming .temperature-toggle .btn {
-  width: auto;
+.warming .temperature-toggle,
+.warming .temperature-toggle-updated {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+.warming .temperature-toggle .btn,
+.warming .temperature-toggle-updated .btn {
+  width: 100%;
+}
+.warming .map-wrap .updated-toggle {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+.warming .map-wrap .updated-toggle .btn {
+  width: 100%;
 }
 @media (min-width: 61em) {
   .warming .controls .options {
     bottom: 20px;
   }
 }
+.warming .map-legend__left {
+  margin-bottom: 20px;
+}
+@media (min-width: 37em) {
+  .warming .map-legend__left {
+    margin-bottom: 0;
+  }
+}
 .customMarker {
   display: none;
   padding: 10px 0;
-  margin: 10px 0 20px 0 ;
+  margin: 10px 0 20px 0;
   border: 1px solid rgba(66, 66, 66, 0.3);
 }
 .customMarker label {
@@ -11365,8 +11397,8 @@ article a:focus img {
   }
 }
 /* =============================================================================
-     HOOKS
-     ========================================================================== */
+   HOOKS
+   ========================================================================== */
 .lt-ie9 .logo img {
   max-width: inherit;
 }
@@ -11435,4 +11467,4 @@ article a:focus img {
 
 /*# sourceMappingURL=style.css.map */
 
-/*# sourceMappingURL=style-22acb4a3d0.css.map */
+/*# sourceMappingURL=style-7014f8b86d.css.map */
