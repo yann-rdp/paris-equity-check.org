@@ -9,7 +9,7 @@
   },
   {
     "iso-a3": "AUS",
-    "value": null
+    "value": 4.4
   },
   {
     "iso-a3": "AUT",
@@ -269,7 +269,7 @@
   },
   {
     "iso-a3": "IDN",
-    "value": null
+    "value": 3.4
   },
   {
     "iso-a3": "IND",
@@ -329,7 +329,7 @@
   },
   {
     "iso-a3": "KOR",
-    "value": 4.7
+    "value": 3.6
   },
   {
     "iso-a3": "KWT",
@@ -377,7 +377,7 @@
   },
   {
     "iso-a3": "MAR",
-    "value": null
+    "value": 1.8
   },
   {
     "iso-a3": "MDA",
@@ -441,7 +441,7 @@
   },
   {
     "iso-a3": "NGA",
-    "value": null
+    "value": 1.2
   },
   {
     "iso-a3": "NIC",
@@ -461,7 +461,7 @@
   },
   {
     "iso-a3": "NZL",
-    "value": null
+    "value": 5.1
   },
   {
     "iso-a3": "OMN",
@@ -625,7 +625,7 @@
   },
   {
     "iso-a3": "UKR",
-    "value": 4.6
+    "value": 3.9
   },
   {
     "iso-a3": "URY",

@@ -31400,6 +31400,13 @@ esign.drawMap = function(data, seriesName) {
             esign.cache.dataSelected = true;
             esign.cache.isoSelected = this['iso-a3'];
 
+            if (this.series && this.series.name && this.series.name === 'EU27' && esign.cache.countriesEU27.indexOf(esign.cache.isoSelected) > -1) {
+              esign.cache.isoSelected = 'EU27';
+
+            } else if (this.series && this.series.name && this.series.name === 'EU28' && esign.cache.countriesEU28.indexOf(esign.cache.isoSelected) > -1) {
+              esign.cache.isoSelected = 'EU28';
+            }
+
             for(var i = 0; i < esign.cache.countries.length; i++ ) {
               if(esign.cache.countries[i]['iso-a3'] === esign.cache.isoSelected) esign.cache.countrySelected = esign.cache.countries[i]['country'];
             }
@@ -31609,7 +31616,10 @@ esign.drawMap = function(data, seriesName) {
       for (var i = 0; i < esign.cache.map.series[0].data.length; i++) {
         if (esign.cache.map.series[0].data[i]['iso-a3'] === iso) {
           tooltip = esign.cache.map.series[0].data[i];
-          tooltip.setState('hover');
+
+          if (tooltip && tooltip.setState) {
+            tooltip.setState('hover');
+          }
 
           esign.cache.map.tooltip.update({
             positioner: function(val, val2, val3) {
@@ -32719,6 +32729,7 @@ esign.fairnessStatement = function(iso) {
           return value['iso-a3'] === iso;
         }
         var fairnessStatement = data.filter(getCountryIso);
+        $('.description-status').html(fairnessStatement[0]['6a'] && fairnessStatement[0]['status'].length ? fairnessStatement[0]['status'] : 'Not Specified');
         $('.description-6a').html(fairnessStatement[0]['6a'] && fairnessStatement[0]['6a'].length ? fairnessStatement[0]['6a'] : 'Not Specified');
         $('.description-6b').html(fairnessStatement[0]['6b'] && fairnessStatement[0]['6b'].length ? fairnessStatement[0]['6b'] : 'Not Specified');
         $('.description-6c').html(fairnessStatement[0]['6c'] && fairnessStatement[0]['6c'].length ? fairnessStatement[0]['6c'] : 'Not Specified');
@@ -32728,6 +32739,7 @@ esign.fairnessStatement = function(iso) {
         $('.description-7b').html(fairnessStatement[0]['7b'] && fairnessStatement[0]['7b'].length ? fairnessStatement[0]['7b'] : 'Not Specified');
         $('.fairness-statement-credits').addClass('hide');
       } catch(e) {
+        $('.description-status').html('Not Specified');
         $('.description-6a').html('Not Specified');
         $('.description-6b').html('Not Specified');
         $('.description-6c').html('Not Specified');
@@ -32976,7 +32988,7 @@ esign.warmingMap = function() {
       $triggerFirst.addClass('active');
       $triggerUpdatedGraph.removeClass('active');
       $triggerFirstGraph.addClass('active');
-      $triggerAvg.click();
+      $triggerLow.click();
       esign.loadWarmingMapData();
       esign.checkListVisibleCountries();
       $fairnessFirst.removeClass('hide');
@@ -33222,6 +33234,17 @@ esign.loadWarmingMapData = function() {
 
 /* Draw map, data of each single country must be in the 1.2-5.1 range to maintain correct color coding */
 esign.drawWarmingMap = function(data, seriesName) {
+
+  // Allow nullInteraction fix
+  Highcharts.seriesTypes.map.prototype.pointClass.prototype.onMouseOver = function (e) {
+    clearTimeout(this.colorInterval);
+    if (this.value !== null || this.series.options.nullInteraction) {
+      Highcharts.Point.prototype.onMouseOver.call(this, e);
+    } else {
+      this.series.onMouseOut(e);
+    }
+  }
+
   var seriesOptions = function (seriesData, seriesName) {
     return {
       name: seriesName,
@@ -33230,7 +33253,7 @@ esign.drawWarmingMap = function(data, seriesName) {
       backgroundColor: '#FCFFC5',
       joinBy: 'iso-a3',
       cursor: 'pointer',
-      nullInteraction: true,
+      nullInteraction: esign.cache.warmingModeUpdated,
       states: {
         hover: {
           borderColor: 'grey',
@@ -33243,18 +33266,33 @@ esign.drawWarmingMap = function(data, seriesName) {
       },
       point: {
         events:{
-          click: function () {
+          click: function (event) {
             esign.cache.dataSelected = true;
             esign.cache.isoSelected = this['iso-a3'];
 
-            for(var i = 0; i < esign.cache.countries.length; i++ ) {
+            if (this.series && this.series.name && this.series.name === 'EU27' && esign.cache.countriesEU27.indexOf(esign.cache.isoSelected) > -1) {
+              esign.cache.isoSelected = 'EU27';
+
+            } else if (this.series && this.series.name && this.series.name === 'EU28' && esign.cache.countriesEU28.indexOf(esign.cache.isoSelected) > -1) {
+              esign.cache.isoSelected = 'EU28';
+            }
+
+            for (var i = 0; i < esign.cache.countries.length; i++ ) {
               if(esign.cache.countries[i]['iso-a3'] === esign.cache.isoSelected) esign.cache.countrySelected = esign.cache.countries[i]['country'];
             }
 
-            esign.openWarmingChart(this.color, temperatureDisplayValue(this.options.value));
+            if (event.point) {
+              if (event.point.options && !event.point.options.labelrank) {
+                esign.openWarmingChart(this.color, temperatureDisplayValue(this.options.value));
+              }
+            } else {
+              esign.openWarmingChart(this.color, temperatureDisplayValue(this.options.value));
+            }
           },
-          mouseOver: function () {
-
+          mouseOver: function (event) {
+            if (event.target && event.target.options && !event.target.options.labelrank) {
+              event.target.graphic.element.classList.remove('highcharts-null-point')
+            }
           },
           mouseOut: function () {
 
@@ -33266,6 +33304,7 @@ esign.drawWarmingMap = function(data, seriesName) {
       borderWidth: 1
     };
   }
+
   esign.cache.map = new Highcharts.Map('map2', {
     title: {
       text: esign.cache.filenameMap,
@@ -33377,8 +33416,12 @@ esign.drawWarmingMap = function(data, seriesName) {
         var iso = this.point['iso-a3'],
           name;
 
-        for(var i = 0; i < esign.cache.countries.length; i++ ) {
+        for (var i = 0; i < esign.cache.countries.length; i++) {
           if(esign.cache.countries[i]['iso-a3'] === iso) name = esign.cache.countries[i]['country'];
+        }
+
+        if (name === undefined) {
+          return false;
         }
 
         if (iso === 'EU27' || iso === 'EU28') {
@@ -33444,7 +33487,10 @@ esign.drawWarmingMap = function(data, seriesName) {
       for(var i = 0; i < esign.cache.map.series[0].data.length; i++) {
         if(esign.cache.map.series[0].data[i]['iso-a3'] === iso) {
           tooltip = esign.cache.map.series[0].data[i];
-          tooltip.setState('hover');
+
+          if (tooltip && tooltip.setState) {
+            tooltip.setState('hover');
+          }
 
           esign.cache.map.tooltip.update({
             positioner: function(val, val2, val3) {
@@ -33464,7 +33510,9 @@ esign.drawWarmingMap = function(data, seriesName) {
   countryListItem.mouseout(function () {
     if(!esign.cache.isMobile) {
       if (esign.cache.map !== undefined) {
-        tooltip.setState();
+        if (tooltip && tooltip.setState) {
+          tooltip.setState();
+        }
         esign.cache.map.tooltip.hide();
       }
     }
@@ -33957,9 +34005,22 @@ esign.createWarmingChart = function(year, color = esign.cache.color.black) {
     return txt;
   };
 
+  var lowSeriesName = 'NDC low assessment (with conditional pledges)';
+  var highSeriesName = 'NDC high assessment (with unconditional pledges)';
+
+  if (esign.cache.warmingModeUpdated) {
+    lowSeriesName = 'NDC unconditional assessment';
+    highSeriesName = 'NDC conditional assessment';
+
+    if (esign.cache.isoSelected === 'KOR') {
+      lowSeriesName = 'Proposed target (June 2021)';
+      highSeriesName = '2020 NDC update';
+    }
+  }
+
   chart.addSeries({
     id: 'ndc-low',
-    name: esign.cache.warmingModeUpdated ? 'NDC unconditional assessment' :'NDC low assessment (with conditional pledges)',
+    name: lowSeriesName,
     data: chartDotLowData,
     type: 'scatter',
     zIndex: 999,
@@ -33990,7 +34051,7 @@ esign.createWarmingChart = function(year, color = esign.cache.color.black) {
 
   chart.addSeries({
     id: 'ndc-high',
-    name: esign.cache.warmingModeUpdated ? 'NDC conditional assessment' : 'NDC high assessment (with unconditional pledges)',
+    name: highSeriesName,
     data: chartDotHighData,
     type: 'scatter',
     zIndex: 999,

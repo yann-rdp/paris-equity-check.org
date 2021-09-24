@@ -377,7 +377,7 @@
   },
   {
     "iso-a3": "MAR",
-    "value": null
+    "value": 1.2
   },
   {
     "iso-a3": "MDA",
@@ -441,7 +441,7 @@
   },
   {
     "iso-a3": "NGA",
-    "value": null
+    "value": 1.2
   },
   {
     "iso-a3": "NIC",
@@ -461,7 +461,7 @@
   },
   {
     "iso-a3": "NZL",
-    "value": null
+    "value": 5.1
   },
   {
     "iso-a3": "OMN",
