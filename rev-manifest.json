@@ -1,15 +1,19 @@
 {
-  "assets/css/style.css": "assets/css/style-7014f8b86d.css",
+  "assets/css/style.css": "assets/css/style-a0cb29fdb0.css",
   "assets/images/NDC.png": "assets/images/NDC-7d741c6523.png",
   "assets/images/content/Article behind the Pledged Warming Map.png": "assets/images/content/Article behind the Pledged Warming Map-f968af68b9.png",
   "assets/images/content/Data of the Equity Map.png": "assets/images/content/Data of the Equity Map-6cffc8a376.png",
   "assets/images/content/Data of the Pledged Warming Map.png": "assets/images/content/Data of the Pledged Warming Map-ccdfe86bdd.png",
   "assets/images/content/ambition-figure-1.png": "assets/images/content/ambition-figure-1-fafe2fe7b9.png",
   "assets/images/content/ambition-figure-2.png": "assets/images/content/ambition-figure-2-c8ef24689a.png",
+  "assets/images/content/climate-action-tracker-2022.png": "assets/images/content/climate-action-tracker-2022-697136f1e3.png",
   "assets/images/content/cost-optimal-emissions-scenarios.jpg": "assets/images/content/cost-optimal-emissions-scenarios-5c84fe403f.jpg",
   "assets/images/content/how-to-read-this-graph.jpg": "assets/images/content/how-to-read-this-graph-6250a815c6.jpg",
   "assets/images/content/indc-factsheets.jpg": "assets/images/content/indc-factsheets-0cb7a8f61c.jpg",
   "assets/images/content/ippc-ar5-wgii-fig-19-4.jpg": "assets/images/content/ippc-ar5-wgii-fig-19-4-6f7512f84b.jpg",
+  "assets/images/content/meinshausen-2022-update.png": "assets/images/content/meinshausen-2022-update-8785f857f2.png",
+  "assets/images/content/meinshausen-2022.png": "assets/images/content/meinshausen-2022-4362f15078.png",
+  "assets/images/content/meinshausen-22-update.png": "assets/images/content/meinshausen-22-update.png",
   "assets/images/content/modelling-framework.jpg": "assets/images/content/modelling-framework-cffaa4ae15.jpg",
   "assets/images/content/paris-agreement.png": "assets/images/content/paris-agreement-153635af8c.png",
   "assets/images/content/publication.jpg": "assets/images/content/publication-cd39b6e8d7.jpg",
@@ -47,5 +51,5 @@
   "assets/images/map-warming.png": "assets/images/map-warming-3615768699.png",
   "assets/images/marker.png": "assets/images/marker-d51c4b4de5.png",
   "assets/images/newMarker.png": "assets/images/newMarker-672e22b004.png",
-  "assets/js/app.js": "assets/js/app-f614fef26c.js"
+  "assets/js/app.js": "assets/js/app-72fa57d046.js"
 }

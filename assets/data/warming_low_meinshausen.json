@@ -69,7 +69,7 @@
   },
   {
     "iso-a3": "BRA",
-    "value": 5.1
+    "value": null
   },
   {
     "iso-a3": "BRB",
@@ -93,19 +93,19 @@
   },
   {
     "iso-a3": "CAN",
-    "value": 3.4
+    "value": null
   },
   {
     "iso-a3": "CHE",
-    "value": 1.6
+    "value": null
   },
   {
     "iso-a3": "CHL",
-    "value": 3.8
+    "value": null
   },
   {
     "iso-a3": "CHN",
-    "value": 5.1
+    "value": null
   },
   {
     "iso-a3": "CIV",
@@ -125,7 +125,7 @@
   },
   {
     "iso-a3": "COL",
-    "value": 2
+    "value": null
   },
   {
     "iso-a3": "COM",
@@ -137,7 +137,7 @@
   },
   {
     "iso-a3": "CRI",
-    "value": 1.2
+    "value": null
   },
   {
     "iso-a3": "CUB",
@@ -213,7 +213,7 @@
   },
   {
     "iso-a3": "GBR",
-    "value": 1.6
+    "value": null
   },
   {
     "iso-a3": "GEO",
@@ -269,7 +269,7 @@
   },
   {
     "iso-a3": "IDN",
-    "value": 3.4
+    "value": null
   },
   {
     "iso-a3": "IND",
@@ -317,7 +317,7 @@
   },
   {
     "iso-a3": "KEN",
-    "value": 1.2
+    "value": null
   },
   {
     "iso-a3": "KGZ",
@@ -329,7 +329,7 @@
   },
   {
     "iso-a3": "KOR",
-    "value": 4.7
+    "value": null
   },
   {
     "iso-a3": "KWT",
@@ -393,7 +393,7 @@
   },
   {
     "iso-a3": "MEX",
-    "value": 2.8
+    "value": null
   },
   {
     "iso-a3": "MKD",
@@ -453,15 +453,15 @@
   },
   {
     "iso-a3": "NOR",
-    "value": 1.8
+    "value": null
   },
   {
     "iso-a3": "NPL",
-    "value": 1.2
+    "value": null
   },
   {
     "iso-a3": "NZL",
-    "value": 5.1
+    "value": null
   },
   {
     "iso-a3": "OMN",
@@ -477,7 +477,7 @@
   },
   {
     "iso-a3": "PER",
-    "value": 1.9
+    "value": null
   },
   {
     "iso-a3": "PHL",
@@ -505,7 +505,7 @@
   },
   {
     "iso-a3": "RUS",
-    "value": 5.1
+    "value": null
   },
   {
     "iso-a3": "RWA",
@@ -525,7 +525,7 @@
   },
   {
     "iso-a3": "SGP",
-    "value": 5.1
+    "value": null
   },
   {
     "iso-a3": "SLB",
@@ -625,7 +625,7 @@
   },
   {
     "iso-a3": "UKR",
-    "value": 4.6
+    "value": null
   },
   {
     "iso-a3": "URY",
@@ -633,7 +633,7 @@
   },
   {
     "iso-a3": "USA",
-    "value": 3
+    "value": null
   },
   {
     "iso-a3": "UZB",
@@ -649,7 +649,7 @@
   },
   {
     "iso-a3": "VNM",
-    "value": 5.1
+    "value": null
   },
   {
     "iso-a3": "VUT",
@@ -665,7 +665,7 @@
   },
   {
     "iso-a3": "ZAF",
-    "value": 3.3
+    "value": null
   },
   {
     "iso-a3": "ZMB",
