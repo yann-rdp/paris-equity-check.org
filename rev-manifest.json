@@ -1,5 +1,5 @@
 {
-  "assets/css/style.css": "assets/css/style-a0cb29fdb0.css",
+  "assets/css/style.css": "assets/css/style-1d8f6c56ed.css",
   "assets/images/NDC.png": "assets/images/NDC-7d741c6523.png",
   "assets/images/content/Article behind the Pledged Warming Map.png": "assets/images/content/Article behind the Pledged Warming Map-f968af68b9.png",
   "assets/images/content/Data of the Equity Map.png": "assets/images/content/Data of the Equity Map-6cffc8a376.png",
@@ -38,6 +38,7 @@
   "assets/images/icons/widetile.png": "assets/images/icons/widetile-7f919e8a30.png",
   "assets/images/legend-warming.png": "assets/images/legend-warming-742d12c355.png",
   "assets/images/legend.png": "assets/images/legend-ecd9b389b3.png",
+  "assets/images/logo-climate-resource.png": "assets/images/logo-climate-resource-14fe81ab1c.png",
   "assets/images/logo.svg": "assets/images/logo-0315e52fac.svg",
   "assets/images/logo_adelphi.png": "assets/images/logo_adelphi-6b0cc732c2.png",
   "assets/images/logo_australian_german_climate_energy_college.png": "assets/images/logo_australian_german_climate_energy_college-1b84d48221.png",
@@ -51,5 +52,5 @@
   "assets/images/map-warming.png": "assets/images/map-warming-3615768699.png",
   "assets/images/marker.png": "assets/images/marker-d51c4b4de5.png",
   "assets/images/newMarker.png": "assets/images/newMarker-672e22b004.png",
-  "assets/js/app.js": "assets/js/app-72fa57d046.js"
+  "assets/js/app.js": "assets/js/app-f35ee3d375.js"
 }

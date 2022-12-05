@@ -7319,6 +7319,13 @@ blockquote {
   font-size: 12px;
   font-size: 1.2rem;
 }
+.text-updated {
+  color: #D07500;
+  font-size: 12px;
+  font-size: 1.2rem;
+  text-transform: none;
+  letter-spacing: 0;
+}
 /*
  * Tables.less
  * Tables for, you guessed it, tabular data
@@ -11523,4 +11530,4 @@ article a:focus img {
 
 /*# sourceMappingURL=style.css.map */
 
-/*# sourceMappingURL=style-a0cb29fdb0.css.map */
+/*# sourceMappingURL=style-1d8f6c56ed.css.map */
