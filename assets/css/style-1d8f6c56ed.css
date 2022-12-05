@@ -7319,6 +7319,13 @@ blockquote {
   font-size: 12px;
   font-size: 1.2rem;
 }
+.text-updated {
+  color: #D07500;
+  font-size: 12px;
+  font-size: 1.2rem;
+  text-transform: none;
+  letter-spacing: 0;
+}
 /*
  * Tables.less
  * Tables for, you guessed it, tabular data
@@ -10393,8 +10400,8 @@ article a:focus img {
 .temperature-toggle-updated {
   margin-bottom: 5px;
 }
-.temperature-toggle + div a,
-.temperature-toggle-updated + div a {
+.temperature-toggle + div:not(.temperature-toggle-source) a,
+.temperature-toggle-updated + div:not(.temperature-toggle-source) a {
   font-size: 14px;
   font-size: 1.4rem;
   padding: 5px 0;
@@ -10403,6 +10410,30 @@ article a:focus img {
 .temperature-toggle-updated .btn {
   width: 60px;
   pointer-events: all;
+}
+.temperature-toggle-source {
+  pointer-events: auto;
+  float: right;
+  margin-left: 10px;
+  position: relative;
+  top: -10px;
+}
+.temperature-toggle-source .dropdown + .modal-button {
+  height: 25px;
+  line-height: 25px;
+  position: relative;
+  top: 13px;
+  margin-left: 5px;
+}
+.temperature-toggle-source .dropdown-menu {
+  left: auto;
+  right: 0;
+}
+.temperature-toggle-source .dropdown-menu a {
+  cursor: pointer;
+}
+.temperature-toggle-source .dropdown-menu a.active {
+  background-color: #F4F4F4;
 }
 .export-map {
   float: right;
@@ -10657,6 +10688,18 @@ article a:focus img {
   margin-bottom: 5px;
   display: inline-block;
 }
+.map-legend__inner .btn-group .modal-button {
+  position: absolute;
+  right: -25px;
+}
+.map-legend__inner .btn {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
 .map-legend__label {
   font-size: 14px;
   font-size: 1.4rem;
@@ -10738,13 +10781,16 @@ article a:focus img {
   font-size: 12px;
   font-size: 1.2rem;
 }
+.colour-legend--warming .colour-legend__row .colour.colour-blue {
+  background: #E4F2F9;
+}
 .colour-legend--warming .colour-legend_ambition {
   width: 130px;
   padding: 0 0 3px !important;
   text-align: center;
   font-size: 13px;
   font-size: 1.3rem;
-  bottom: -18px;
+  bottom: -16px;
   left: -4px;
 }
 .colour-legend--warming .colour-legend_ambition:after,
@@ -10752,12 +10798,12 @@ article a:focus img {
   display: none;
 }
 .colour-legend--warming .colour-legend__arrow {
-  height: 90px;
+  height: 100px;
   width: 2px;
   background-color: #1f2624;
   display: block;
   position: absolute;
-  top: 17px;
+  top: 23px;
   left: 17px;
 }
 .colour-legend--warming .colour-legend__arrow:after {
@@ -10984,6 +11030,12 @@ article a:focus img {
     padding: 100px 40px 80px;
   }
 }
+.graph-country__comments {
+  font-size: 12px;
+  font-size: 1.2rem;
+  text-transform: none;
+  letter-spacing: 0;
+}
 .graph-legend {
   display: inline-block;
 }
@@ -11062,7 +11114,8 @@ article a:focus img {
 #temperature-goal .md-close,
 #five-equity-assessments .md-close,
 #paris-equity-check .md-close,
-#legend .md-close {
+#legend .md-close,
+#data-source .md-close {
   width: 80px;
 }
 @media (min-width: 47em) {
@@ -11070,7 +11123,8 @@ article a:focus img {
   #temperature-goal,
   #five-equity-assessments,
   #paris-equity-check,
-  #legend {
+  #legend,
+  #data-source {
     width: 75%;
     height: calc(100vh - 60px);
     top: 60px;
@@ -11079,14 +11133,16 @@ article a:focus img {
   #temperature-goal .md-content,
   #five-equity-assessments .md-content,
   #paris-equity-check .md-content,
-  #legend .md-content {
+  #legend .md-content,
+  #data-source .md-content {
     height: calc(100vh - 60px);
   }
   #graph .md-close,
   #temperature-goal .md-close,
   #five-equity-assessments .md-close,
   #paris-equity-check .md-close,
-  #legend .md-close {
+  #legend .md-close,
+  #data-source .md-close {
     top: 80px;
     margin-top: 0;
     right: auto;
@@ -11098,14 +11154,16 @@ article a:focus img {
   #temperature-goal,
   #five-equity-assessments,
   #paris-equity-check,
-  #legend {
+  #legend,
+  #data-source {
     width: 80%;
   }
   #graph .md-close,
   #temperature-goal .md-close,
   #five-equity-assessments .md-close,
   #paris-equity-check .md-close,
-  #legend .md-close {
+  #legend .md-close,
+  #data-source .md-close {
     left: calc(80% - 100px);
   }
 }
@@ -11151,19 +11209,24 @@ article a:focus img {
   font-size: 1.8rem;
   font-weight: 600;
 }
+.warming .tool hr {
+  margin: 0 0 8px;
+}
 .warming .highcharts-legend-item .highcharts-point {
   -webkit-transform: scale(0.7) translate(3px, 3px);
   -ms-transform: scale(0.7) translate(3px, 3px);
   transform: scale(0.7) translate(3px, 3px);
 }
 .warming .temperature-toggle,
-.warming .temperature-toggle-updated {
+.warming .temperature-toggle-updated,
+.warming .temperature-toggle-source {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
 }
 .warming .temperature-toggle .btn,
-.warming .temperature-toggle-updated .btn {
+.warming .temperature-toggle-updated .btn,
+.warming .temperature-toggle-source .btn {
   width: 100%;
 }
 .warming .map-wrap .updated-toggle {
@@ -11467,4 +11530,4 @@ article a:focus img {
 
 /*# sourceMappingURL=style.css.map */
 
-/*# sourceMappingURL=style-7014f8b86d.css.map */
+/*# sourceMappingURL=style-1d8f6c56ed.css.map */

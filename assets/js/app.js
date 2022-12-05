@@ -29600,7 +29600,7 @@ Highcharts.maps["custom/world-eckert3-highres"] = {
             "hc-middle-y": 0.50,
             "hc-key": "sz",
             "hc-a2": "SZ",
-            "name": "Swaziland",
+            "name": "Eswatini",
             "labelrank": "4",
             "country-abbrev": "Swz.",
             "subregion": "Southern Africa",
@@ -30175,7 +30175,7 @@ Highcharts.maps["custom/world-eckert3-highres"] = {
             "hc-middle-y": 0.49,
             "hc-key": "mk",
             "hc-a2": "MK",
-            "name": "Macedonia",
+            "name": "North Macedonia",
             "labelrank": "6",
             "country-abbrev": "Mkd.",
             "subregion": "Southern Europe",
@@ -30835,7 +30835,8 @@ Highcharts.maps["custom/world-eckert3-highres"] = {
             "coordinates": [[[4385, 7202], [4380, 7206], [4385, 7212], [4389, 7208], [4385, 7202]]]
         }
     }]
-};
+}
+;
 define("js/highcharts/world-eckert3-highres.mod", function(){});
 
 window.esign = window.esign || {};
@@ -30926,29 +30927,43 @@ esign.cacheSelectors = function () {
     warmingAvgUpdated: null,
     warmingAvgUpdatedEU27: [],
     warmingAvgUpdatedEU28: [],
+
     warmingHigh: null,
     warmingHighEU27: [],
     warmingHighEU28: [],
     warmingHighUpdated: null,
     warmingHighUpdatedEU27: [],
     warmingHighUpdatedEU28: [],
+    warmingHighMeinshausen: null,
+    warmingHighMeinshausenEU27: [],
+    warmingHighNationalEUTargets: null,
+    warmingHighNationalEUTargetsEU27: [],
+
     warmingLow: null,
     warmingLowEU27: [],
     warmingLowEU28: [],
     warmingLowUpdated: null,
     warmingLowUpdatedEU27: [],
     warmingLowUpdatedEU28: [],
+    warmingLowMeinshausen: null,
+    warmingLowMeinshausenEU27: [],
+    warmingLowNationalEUTargets: null,
+    warmingLowNationalEUTargetsEU27: [],
 
     warmingConsistencyData: null,
     warmingConsistencyDataUpdated: null,
+    warmingConsistencyDataMeinshausen: null,
+    warmingConsistencyDataNationalEUTargets: null,
     warmingConsistencyX: null,
     warmingConsistencyY: null,
 
     warmingMode: 2, // 0 = avg, 1 = high (conditional), 2 = low (unconditional)
     warmingModeUpdated: true,
+    warmingSource: 1, // 0 = Climate Action Tracker, 1 = Meinshausen et al. 2022, 2 = National EU targets
 
     countriesEU27: ['AUT', 'BEL', 'BGR', 'HRV', 'CYP', 'CZE', 'DNK', 'EST', 'FIN', 'FRA', 'DEU', 'GRC', 'HUN', 'IRL', 'ITA', 'LVA', 'LTU', 'LUX', 'MLT', 'NLD', 'POL', 'PRT', 'ROU', 'SVK', 'SVN', 'ESP', 'SWE'],
-    countriesEU28: ['AUT', 'BEL', 'BGR', 'HRV', 'CYP', 'CZE', 'DNK', 'EST', 'FIN', 'FRA', 'DEU', 'GRC', 'HUN', 'IRL', 'ITA', 'LVA', 'LTU', 'LUX', 'MLT', 'NLD', 'POL', 'PRT', 'ROU', 'SVK', 'SVN', 'ESP', 'SWE', 'GBR']
+    countriesEU28: ['AUT', 'BEL', 'BGR', 'HRV', 'CYP', 'CZE', 'DNK', 'EST', 'FIN', 'FRA', 'DEU', 'GRC', 'HUN', 'IRL', 'ITA', 'LVA', 'LTU', 'LUX', 'MLT', 'NLD', 'POL', 'PRT', 'ROU', 'SVK', 'SVN', 'ESP', 'SWE', 'GBR'],
+    warmingNonAssessedUpdatedTargets: ['ALB', 'AND', 'AGO', 'ATG', 'ARG', 'ARM', 'BHR', 'BGD', 'BRB', 'BLR', 'BLZ', 'BEN', 'BOL', 'BIH', 'BRN', 'BFA', 'BDI', 'CPV', 'KHM', 'CMR', 'CAF', 'TCD', 'COM', 'COG', 'COD', 'CIV', 'CUB', 'DOM', 'ETH', 'SLV', 'SWZ', 'FJI', 'GEO', 'GHA', 'GRD', 'GTM', 'GIN', 'GNB', 'HND', 'ISL', 'IRQ', 'JAM', 'JOR', 'PRK', 'KWT', 'KGZ', 'LAO', 'LBN', 'LBR', 'MWI', 'MYS', 'MDV', 'MLI', 'MHL', 'MRT', 'MUS', 'MDA', 'MCO', 'MNG', 'MNE', 'MOZ', 'MMR', 'NAM', 'NRU', 'NIC', 'NER', , 'OMN', 'PAK', 'PSE', 'PAN', 'PHL', 'PNG', 'PRY', 'QAT', 'RWA', 'KNA', 'LCA', 'WSM', 'SAU', 'STP', 'SEN', 'SYC', 'SLE', 'SLB', 'SOM', 'SSD', 'LKA', 'SDN', 'SUR', 'TJK', 'TZA', 'TGO', 'TON', 'TUN', 'UGA', 'UZB', 'VUT', 'VEN', 'ZMB', 'ZWE'],
   }
 };
 
@@ -32723,30 +32738,52 @@ esign.createChart = function(year) {
 /* Fill fairness statement */
 esign.fairnessStatement = function(iso) {
   if (esign.cache.warmingModeUpdated) {
+    var fieldsUpdated = ['status', 'date', '6a', '6b', '6c', '6d', '6e', '7a', '7b', 'conditionality', 'comments'];
+    var fieldsUpdatedEU27 = ['latest_available', 'source', 'note'];
+
     $.getJSON('assets/data/fairness-all-updated.json?v=' + esign.cache.version, function(data) {
       try {
         function getCountryIso(value) {
           return value['iso-a3'] === iso;
         }
-        var fairnessStatement = data.filter(getCountryIso);
-        $('.description-status').html(fairnessStatement[0]['6a'] && fairnessStatement[0]['status'].length ? fairnessStatement[0]['status'] : 'Not Specified');
-        $('.description-6a').html(fairnessStatement[0]['6a'] && fairnessStatement[0]['6a'].length ? fairnessStatement[0]['6a'] : 'Not Specified');
-        $('.description-6b').html(fairnessStatement[0]['6b'] && fairnessStatement[0]['6b'].length ? fairnessStatement[0]['6b'] : 'Not Specified');
-        $('.description-6c').html(fairnessStatement[0]['6c'] && fairnessStatement[0]['6c'].length ? fairnessStatement[0]['6c'] : 'Not Specified');
-        $('.description-6d').html(fairnessStatement[0]['6d'] && fairnessStatement[0]['6d'].length ? fairnessStatement[0]['6d'] : 'Not Specified');
-        $('.description-6e').html(fairnessStatement[0]['6e'] && fairnessStatement[0]['6e'].length ? fairnessStatement[0]['6e'] : 'Not Specified');
-        $('.description-7a').html(fairnessStatement[0]['7a'] && fairnessStatement[0]['7a'].length ? fairnessStatement[0]['7a'] : 'Not Specified');
-        $('.description-7b').html(fairnessStatement[0]['7b'] && fairnessStatement[0]['7b'].length ? fairnessStatement[0]['7b'] : 'Not Specified');
+
+        var fairnessStatement = data.filter(getCountryIso)[0];
+
+
+        if (esign.cache.countriesEU27.indexOf(fairnessStatement['iso-a3']) > -1) {
+          $('.fairness-statement-updated').addClass('hide');
+          $('.fairness-statement-updated-eu27').removeClass('hide');
+
+          for (var i = 0; i < fieldsUpdatedEU27.length; i += 1) {
+            $('.description-' + fieldsUpdatedEU27[i]).html(
+              fairnessStatement[fieldsUpdatedEU27[i]] && fairnessStatement[fieldsUpdatedEU27[i]].length
+                ? fairnessStatement[fieldsUpdatedEU27[i]] : 'Not Specified'
+            );
+          }
+        } else {
+          $('.fairness-statement-updated').removeClass('hide');
+          $('.fairness-statement-updated-eu27').addClass('hide');
+
+          for (var i = 0; i < fieldsUpdated.length; i += 1) {
+            $('.description-' + fieldsUpdated[i]).html(
+              fairnessStatement[fieldsUpdated[i]] && fairnessStatement[fieldsUpdated[i]].length
+                ? fairnessStatement[fieldsUpdated[i]] : 'Not Specified'
+            );
+          }
+        }
+
         $('.fairness-statement-credits').addClass('hide');
       } catch(e) {
-        $('.description-status').html('Not Specified');
-        $('.description-6a').html('Not Specified');
-        $('.description-6b').html('Not Specified');
-        $('.description-6c').html('Not Specified');
-        $('.description-6d').html('Not Specified');
-        $('.description-6e').html('Not Specified');
-        $('.description-7a').html('Not Specified');
-        $('.description-7b').html('Not Specified');
+        $('.fairness-statement-updated').removeClass('hide');
+        $('.fairness-statement-updated-eu27').addClass('hide');
+
+        for (var i = 0; i < fieldsUpdatedEU27.length; i += 1) {
+          $('.description-' + fieldsUpdatedEU27[i]).html('Not Specified');
+        }
+        for (var i = 0; i < fieldsUpdated.length; i += 1) {
+          $('.description-' + fieldsUpdated[i]).html('Not Specified');
+        }
+
         $('.fairness-statement-credits').addClass('hide');
       }
     });
@@ -32880,6 +32917,7 @@ esign.warmingMap = function() {
 
   var $temperatureToggle = $('.temperature-toggle');
   var $temperatureToggleUpdated = $('.temperature-toggle-updated');
+  var $temperatureToggleSource = $('.temperature-toggle-source');
   var $triggerLow = $('#low');
   var $triggerAvg = $('#avg');
   var $triggerHigh = $('#high');
@@ -32889,6 +32927,9 @@ esign.warmingMap = function() {
   var $triggerUpdated = $('#updated-ndc');
   var $triggerFirstGraph = $('#first-ndc-graph');
   var $triggerUpdatedGraph = $('#updated-ndc-graph');
+  var $triggerSource1 = $('#climate-action-tracker');
+  var $triggerSource2 = $('#meinshausen');
+  var $triggerSource3 = $('#national-eu-targets');
   var $fairnessFirst = $('.fairness-statement-first');
   var $fairnessUpdated = $('.fairness-statement-updated');
 
@@ -32979,16 +33020,20 @@ esign.warmingMap = function() {
   $triggerFirst.click(function (e) {
     e.preventDefault();
 
-    if (esign.cache.warmingMode !== false && !$triggerFirst.hasClass('active')) {
+    if (esign.cache.warmingModeUpdated !== false && !$triggerFirst.hasClass('active')) {
       esign.resetState();
       esign.cache.warmingModeUpdated = false;
+      esign.cache.warmingMode = 2;
       $temperatureToggle.removeClass('hide');
       $temperatureToggleUpdated.addClass('hide');
+      $temperatureToggleSource.addClass('hide');
       $triggerUpdated.removeClass('active');
       $triggerFirst.addClass('active');
       $triggerUpdatedGraph.removeClass('active');
       $triggerFirstGraph.addClass('active');
-      $triggerLow.click();
+      $triggerLow.addClass('active');
+      $triggerHigh.removeClass('active');
+      $triggerAvg.removeClass('active');
       esign.loadWarmingMapData();
       esign.checkListVisibleCountries();
       $fairnessFirst.removeClass('hide');
@@ -32999,242 +33044,356 @@ esign.warmingMap = function() {
   // Updated NDC
   $triggerUpdated.click(function (e) {
     e.preventDefault();
-    if (esign.cache.warmingMode !== true && !$triggerUpdated.hasClass('active')) {
+    if (esign.cache.warmingModeUpdated !== true && !$triggerUpdated.hasClass('active')) {
       esign.resetState();
       esign.cache.warmingModeUpdated = true;
+      esign.cache.warmingMode = 2;
+      esign.cache.warmingSource = 1;
       $temperatureToggle.addClass('hide');
       $temperatureToggleUpdated.removeClass('hide');
+      $temperatureToggleSource.removeClass('hide');
       $triggerFirst.removeClass('active');
       $triggerUpdated.addClass('active');
       $triggerFirstGraph.removeClass('active');
       $triggerUpdatedGraph.addClass('active');
-      $triggerLowUpdated.click();
+      $triggerSource2.addClass('active');
+      $triggerSource1.removeClass('active');
+      $triggerSource3.removeClass('active');
+      $triggerLowUpdated.addClass('active');
+      $triggerHighUpdated.removeClass('active');
       esign.loadWarmingMapData();
       esign.checkListVisibleCountries();
       $fairnessFirst.addClass('hide');
       $fairnessUpdated.removeClass('hide');
     }
   });
+
+  // Climate Action Tracker
+  $triggerSource1.click(function (e) {
+    e.preventDefault();
+    if (!$triggerSource1.hasClass('active')) {
+      esign.resetState();
+      esign.cache.warmingSource = 0;
+      $triggerSource2.removeClass('active');
+      $triggerSource3.removeClass('active');
+      $triggerSource1.addClass('active');
+      esign.loadWarmingMapData();
+    }
+  });
+
+  // Meinshausen
+  $triggerSource2.click(function (e) {
+    e.preventDefault();
+    if (!$triggerSource2.hasClass('active')) {
+      esign.resetState();
+      esign.cache.warmingSource = 1;
+      $triggerSource1.removeClass('active');
+      $triggerSource3.removeClass('active');
+      $triggerSource2.addClass('active');
+      esign.loadWarmingMapData();
+    }
+  });
+
+  // National EU targets
+  $triggerSource3.click(function (e) {
+    e.preventDefault();
+    if (!$triggerSource3.hasClass('active')) {
+      esign.resetState();
+      esign.cache.warmingSource = 2;
+      $triggerSource1.removeClass('active');
+      $triggerSource2.removeClass('active');
+      $triggerSource3.addClass('active');
+      esign.loadWarmingMapData();
+    }
+  });
+};
+
+esign.replaceEUValues = function(dataName, dataNameEU27 = null, dataNameEU28 = null) {
+  var EU27 = esign.getValueByIso(esign.cache[dataName], 'EU27');
+  var EU28 = esign.getValueByIso(esign.cache[dataName], 'EU28');
+
+  for (var i = 0; i < esign.cache[dataName].length; i += 1) {
+    if (dataNameEU27) {
+      if (esign.cache.countriesEU27.indexOf(esign.cache[dataName][i]['iso-a3']) > -1) {
+        esign.cache[dataNameEU27].push({
+          'iso-a3': esign.cache[dataName][i]['iso-a3'],
+          value: EU27.value
+        });
+      } else {
+        esign.cache[dataNameEU27].push(esign.cache[dataName][i]);
+      }
+    }
+
+    if (dataNameEU28) {
+      if (esign.cache.countriesEU28.indexOf(esign.cache[dataName][i]['iso-a3']) > -1) {
+        esign.cache[dataNameEU28].push({
+          'iso-a3': esign.cache[dataName][i]['iso-a3'],
+          value: EU28.value
+        });
+      } else {
+        esign.cache[dataNameEU28].push(esign.cache[dataName][i]);
+      }
+    }
+  }
+}
+
+esign.closest = function(needle, haystack) {
+  return haystack.reduce((a, b) => {
+    let aDiff = Math.abs(a - needle);
+    let bDiff = Math.abs(b - needle);
+
+    if (aDiff === bDiff) {
+      return a > b ? a : b;
+    } else {
+      return bDiff < aDiff ? b : a;
+    }
+  });
+}
+
+esign.loadWarmingMapDataMeinshausen = function() {
+  var pathX = 'assets/data/warming_consistency_x.json?v=' + esign.cache.version;
+  var pathY = 'assets/data/warming_consistency_y.json?v=' + esign.cache.version;
+  var pathDataMeinshausen = 'assets/data/warming_consistency_meinshausen.json?v=' + esign.cache.version;
+
+  $.when(
+    $.getJSON(pathDataMeinshausen, function(data) {
+      esign.cache.warmingConsistencyDataMeinshausen = data;
+    }),
+    $.getJSON(pathX, function(data) {
+      esign.cache.warmingConsistencyX = data;
+    }),
+    $.getJSON(pathY, function(data) {
+      esign.cache.warmingConsistencyY = data;
+    }),
+    $.getJSON('assets/data/warming_low_meinshausen.json?v=' + esign.cache.version, function(dataMap) {
+      esign.cache.warmingLowMeinshausen = dataMap;
+    }),
+    $.getJSON('assets/data/warming_high_meinshausen.json?v=' + esign.cache.version, function(dataMap) {
+      esign.cache.warmingHighMeinshausen = dataMap;
+    }),
+  ).done(setMeinshausenValues);
+
+  function setMeinshausenValues() {
+    $.when(
+      (function () {
+        var keys = ['r', 'g', 'b', 'temp-avg-x', 'em-avg-y', 'temp-high-x', 'em-high-y', 'temp-low-x', 'em-low-y', 'em-high-y-min', 'em-high-y-max', 'em-low-y-min', 'em-low-y-max'];
+        var xAxis = esign.cache.warmingConsistencyX[0].x;
+
+        esign.cache.warmingConsistencyDataMeinshausen.forEach(function(item) {
+          var consistency = esign.cache.warmingConsistencyY.filter(function(value) {
+            return Object.keys(value)[0] === item['iso-a3'];
+          })[0];
+          var low = esign.cache.warmingLowMeinshausen.filter(function(value) {
+            return value['iso-a3'] === item['iso-a3'];
+          })[0];
+          var high = esign.cache.warmingHighMeinshausen.filter(function(value) {
+            return value['iso-a3'] === item['iso-a3'];
+          })[0];
+
+          if (consistency) {
+            consistency = consistency[item['iso-a3']];
+          }
+
+          for (var i = 0; i < keys.length; i++) {
+            if (typeof item[keys[i]] === 'string') {
+              if (item[keys[i]]) {
+                item[keys[i]] = item[keys[i]].replace(',','.');
+                item[keys[i]] = parseFloat(item[keys[i]]);
+
+                if (consistency) {
+                  if (keys[i].indexOf('-y') > -1) {
+                    item[keys[i]] = esign.closest(item[keys[i]], consistency);
+                  }
+                }
+              }
+            }
+          }
+
+          if (consistency) {
+            item['temp-avg-x'] = xAxis[consistency.indexOf(item['em-avg-y'])];
+            item['temp-high-x'] = xAxis[consistency.indexOf(item['em-high-y'])];
+            item['temp-low-x'] = xAxis[consistency.indexOf(item['em-low-y'])];
+
+            if (item['temp-high-x']) {
+              high.value = Math.round(item['temp-high-x'] * 10) / 10;
+            }
+
+            if (item['temp-low-x']) {
+              low.value =  Math.round(item['temp-low-x'] * 10) / 10;
+            }
+          }
+        });
+
+        esign.replaceEUValues('warmingLowMeinshausen', 'warmingLowMeinshausenEU27');
+        esign.replaceEUValues('warmingHighMeinshausen', 'warmingHighMeinshausenEU27');
+      })(),
+    ).done(function() {
+      esign.loadWarmingMapData();
+    });
+  }
+};
+
+esign.loadWarmingMapDataNationalEUTargets = function() {
+  var pathX = 'assets/data/warming_consistency_x.json?v=' + esign.cache.version;
+  var pathY = 'assets/data/warming_consistency_y.json?v=' + esign.cache.version;
+  var pathDataNationalEUTargets = 'assets/data/warming_consistency_national_eu_targets.json?v=' + esign.cache.version;
+
+  $.when(
+    $.getJSON(pathDataNationalEUTargets, function(data) {
+      esign.cache.warmingConsistencyDataNationalEUTargets = data;
+    }),
+    $.getJSON(pathX, function(data) {
+      esign.cache.warmingConsistencyX = data;
+    }),
+    $.getJSON(pathY, function(data) {
+      esign.cache.warmingConsistencyY = data;
+    }),
+    $.getJSON('assets/data/warming_low_national_eu_targets.json?v=' + esign.cache.version, function(dataMap) {
+      esign.cache.warmingLowNationalEUTargets = dataMap;
+    }),
+    $.getJSON('assets/data/warming_high_national_eu_targets.json?v=' + esign.cache.version, function(dataMap) {
+      esign.cache.warmingHighNationalEUTargets = dataMap;
+    }),
+  ).done(setNationalEUTargetsValues);
+
+  function setNationalEUTargetsValues() {
+    $.when(
+      (function () {
+        var keys = ['r', 'g', 'b', 'temp-avg-x', 'em-avg-y', 'temp-high-x', 'em-high-y', 'temp-low-x', 'em-low-y', 'em-high-y-min', 'em-high-y-max', 'em-low-y-min', 'em-low-y-max'];
+        var xAxis = esign.cache.warmingConsistencyX[0].x;
+
+        esign.cache.warmingConsistencyDataNationalEUTargets.forEach(function(item) {
+          var consistency = esign.cache.warmingConsistencyY.filter(function(value) {
+            return Object.keys(value)[0] === item['iso-a3'];
+          })[0];
+          var low = esign.cache.warmingLowNationalEUTargets.filter(function(value) {
+            return value['iso-a3'] === item['iso-a3'];
+          })[0];
+          var high = esign.cache.warmingHighNationalEUTargets.filter(function(value) {
+            return value['iso-a3'] === item['iso-a3'];
+          })[0];
+
+          if (consistency) {
+            consistency = consistency[item['iso-a3']];
+          }
+
+          for (var i = 0; i < keys.length; i++) {
+            if (typeof item[keys[i]] === 'string') {
+              if (item[keys[i]]) {
+                item[keys[i]] = item[keys[i]].replace(',','.');
+                item[keys[i]] = parseFloat(item[keys[i]]);
+
+                if (consistency) {
+                  if (keys[i].indexOf('-y') > -1) {
+                    item[keys[i]] = esign.closest(item[keys[i]], consistency);
+                  }
+                }
+              }
+            }
+          }
+
+          if (consistency) {
+            item['temp-avg-x'] = xAxis[consistency.indexOf(item['em-avg-y'])];
+            item['temp-high-x'] = xAxis[consistency.indexOf(item['em-high-y'])];
+            item['temp-low-x'] = xAxis[consistency.indexOf(item['em-low-y'])];
+
+            if (item['temp-high-x']) {
+              high.value = Math.round(item['temp-high-x'] * 10) / 10;
+            }
+
+            if (item['temp-low-x']) {
+              low.value =  Math.round(item['temp-low-x'] * 10) / 10;
+            }
+          }
+        });
+
+        esign.cache.warmingLowNationalEUTargetsEU27 = esign.cache.warmingLowNationalEUTargets;
+        esign.cache.warmingHighNationalEUTargetsEU27 = esign.cache.warmingHighNationalEUTargets;
+      })(),
+    ).done(function() {
+      esign.loadWarmingMapData();
+    });
+  }
 };
 
 /* Load warming map data */
 esign.loadWarmingMapData = function() {
   esign.cache.filenameMap = 'Global 2100-warming of NDCs [Downloaded from Paris-equity-check.org]';
 
-  if (esign.cache.warmingMode === 0) {
-    if (esign.cache.warmingModeUpdated) {
-      if (!esign.cache.warmingAvgUpdated) {
-        $.getJSON('assets/data/warming_avg_updated.json?v=' + esign.cache.version, function(dataMap) {
-          esign.cache.warmingAvgUpdated = dataMap;
+  if (
+    (esign.cache.warmingModeUpdated && esign.cache.warmingSource === 1)
+    && (!esign.cache.warmingConsistencyDataMeinshausen || !esign.cache.warmingConsistencyX || !esign.cache.warmingConsistencyY)
+  ) {
+    esign.loadWarmingMapDataMeinshausen();
+    return;
+  }
 
-          var EU27 = esign.getValueByIso(esign.cache.warmingAvgUpdated, 'EU27');
-          var EU28 = esign.getValueByIso(esign.cache.warmingAvgUpdated, 'EU28');
+  if (
+    (esign.cache.warmingModeUpdated && esign.cache.warmingSource === 2)
+    && (!esign.cache.warmingConsistencyDataNationalEUTargets || !esign.cache.warmingConsistencyX || !esign.cache.warmingConsistencyY)
+  ) {
+    esign.loadWarmingMapDataNationalEUTargets();
+    return;
+  }
 
-          for (var i = 0; i < esign.cache.warmingAvgUpdated.length; i += 1) {
-            if (esign.cache.countriesEU27.indexOf(esign.cache.warmingAvgUpdated[i]['iso-a3']) > -1) {
-              esign.cache.warmingAvgUpdatedEU27.push({
-                'iso-a3': esign.cache.warmingAvgUpdated[i]['iso-a3'],
-                value: EU27.value
-              });
-            } else {
-              esign.cache.warmingAvgUpdatedEU27.push(esign.cache.warmingAvgUpdated[i]);
-            }
+  function loadWarmingType(type) {
+    var dataName = 'warming' + type;
+    var dataNameEU27 = 'warming' + type + 'EU27';
+    var dataNameEU28 = 'warming' + type + 'EU28';
+    var dataNameUpdated = 'warming' + type + 'Updated';
+    var dataNameUpdatedEU27 = 'warming' + type + 'UpdatedEU27';
+    var dataNameUpdatedEU28 = 'warming' + type + 'UpdatedEU28';
+    var dataNameMeinshausenEU27 = 'warming' + type + 'MeinshausenEU27';
+    var dataNameNationalEUTargetsEU27 = 'warming' + type + 'NationalEUTargetsEU27';
 
-            if (esign.cache.countriesEU28.indexOf(esign.cache.warmingAvgUpdated[i]['iso-a3']) > -1) {
-              esign.cache.warmingAvgUpdatedEU28.push({
-                'iso-a3': esign.cache.warmingAvgUpdated[i]['iso-a3'],
-                value: EU28.value
-              });
-            } else {
-              esign.cache.warmingAvgUpdatedEU28.push(esign.cache.warmingAvgUpdated[i]);
-            }
+    var mode = 0;
+
+    if (type === 'High') {
+      mode = 1;
+    }
+
+    if (type === 'Low') {
+      mode = 2;
+    }
+
+    if (esign.cache.warmingMode === mode) {
+      if (esign.cache.warmingModeUpdated) {
+        if (esign.cache.warmingSource === 0) {
+          if (!esign.cache[dataNameUpdated]) {
+            $.getJSON('assets/data/warming_' + type.toLowerCase() + '_updated.json?v=' + esign.cache.version, function(dataMap) {
+              esign.cache[dataNameUpdated] = dataMap;
+              esign.replaceEUValues(dataNameUpdated, dataNameUpdatedEU27, dataNameUpdatedEU28);
+              esign.drawWarmingMap(esign.cache[dataNameUpdatedEU27], 'EU27');
+            });
+          } else {
+            esign.drawWarmingMap(esign.cache[dataNameUpdatedEU27], 'EU27');
           }
-
-          esign.drawWarmingMap(esign.cache.warmingAvgUpdatedEU27, 'EU27');
-        });
+        } else if (esign.cache.warmingSource === 1) {
+          esign.drawWarmingMap(esign.cache[dataNameMeinshausenEU27], 'EU27');
+        } else if (esign.cache.warmingSource === 2) {
+          esign.drawWarmingMap(esign.cache[dataNameNationalEUTargetsEU27], 'EU27');
+        }
       } else {
-        esign.drawWarmingMap(esign.cache.warmingAvgUpdatedEU27, 'EU27');
-      }
-    } else {
-      if (!esign.cache.warmingAvg) {
-        $.getJSON('assets/data/warming_avg.json?v=' + esign.cache.version, function(dataMap) {
-          esign.cache.warmingAvg = dataMap;
-
-          var EU27 = esign.getValueByIso(esign.cache.warmingAvg, 'EU27');
-          var EU28 = esign.getValueByIso(esign.cache.warmingAvg, 'EU28');
-
-          for (var i = 0; i < esign.cache.warmingAvg.length; i += 1) {
-            if (esign.cache.countriesEU27.indexOf(esign.cache.warmingAvg[i]['iso-a3']) > -1) {
-              esign.cache.warmingAvgEU27.push({
-                'iso-a3': esign.cache.warmingAvg[i]['iso-a3'],
-                value: EU27.value
-              });
-            } else {
-              esign.cache.warmingAvgEU27.push(esign.cache.warmingAvg[i]);
-            }
-
-            if (esign.cache.countriesEU28.indexOf(esign.cache.warmingAvg[i]['iso-a3']) > -1) {
-              esign.cache.warmingAvgEU28.push({
-                'iso-a3': esign.cache.warmingAvg[i]['iso-a3'],
-                value: EU28.value
-              });
-            } else {
-              esign.cache.warmingAvgEU28.push(esign.cache.warmingAvg[i]);
-            }
-          }
-
-          esign.drawWarmingMap(esign.cache.warmingAvgEU28, 'EU28');
-        });
-      } else {
-        esign.drawWarmingMap(esign.cache.warmingAvgEU28, 'EU28');
+        if (!esign.cache[dataName]) {
+          $.getJSON('assets/data/warming_' + type.toLowerCase() + '.json?v=' + esign.cache.version, function(dataMap) {
+            esign.cache[dataName] = dataMap;
+            esign.replaceEUValues(dataName, dataNameEU27, dataNameEU28);
+            esign.drawWarmingMap(esign.cache[dataNameEU28], 'EU28');
+          });
+        } else {
+          esign.drawWarmingMap(esign.cache[dataNameEU28], 'EU28');
+        }
       }
     }
   }
 
-  if (esign.cache.warmingMode === 1) {
-    if (esign.cache.warmingModeUpdated) {
-      if (!esign.cache.warmingHighUpdated) {
-        $.getJSON('assets/data/warming_high_updated.json?v=' + esign.cache.version, function(dataMap) {
-          esign.cache.warmingHighUpdated = dataMap;
-
-          var EU27 = esign.getValueByIso(esign.cache.warmingHighUpdated, 'EU27');
-          var EU28 = esign.getValueByIso(esign.cache.warmingHighUpdated, 'EU28');
-
-          for (var i = 0; i < esign.cache.warmingHighUpdated.length; i += 1) {
-            if (esign.cache.countriesEU27.indexOf(esign.cache.warmingHighUpdated[i]['iso-a3']) > -1) {
-              esign.cache.warmingHighUpdatedEU27.push({
-                'iso-a3': esign.cache.warmingHighUpdated[i]['iso-a3'],
-                value: EU27.value
-              });
-            } else {
-              esign.cache.warmingHighUpdatedEU27.push(esign.cache.warmingHighUpdated[i]);
-            }
-
-            if (esign.cache.countriesEU28.indexOf(esign.cache.warmingHighUpdated[i]['iso-a3']) > -1) {
-              esign.cache.warmingHighUpdatedEU28.push({
-                'iso-a3': esign.cache.warmingHighUpdated[i]['iso-a3'],
-                value: EU28.value
-              });
-            } else {
-              esign.cache.warmingHighUpdatedEU28.push(esign.cache.warmingHighUpdated[i]);
-            }
-          }
-
-          esign.drawWarmingMap(esign.cache.warmingHighUpdatedEU27, 'EU27');
-        });
-      } else {
-        esign.drawWarmingMap(esign.cache.warmingHighUpdatedEU27, 'EU27');
-      }
-    } else {
-      if (!esign.cache.warmingHigh) {
-        $.getJSON('assets/data/warming_high.json?v=' + esign.cache.version, function(dataMap) {
-          esign.cache.warmingHigh = dataMap;
-
-          var EU27 = esign.getValueByIso(esign.cache.warmingHigh, 'EU27');
-          var EU28 = esign.getValueByIso(esign.cache.warmingHigh, 'EU28');
-
-          for (var i = 0; i < esign.cache.warmingHigh.length; i += 1) {
-            if (esign.cache.countriesEU27.indexOf(esign.cache.warmingHigh[i]['iso-a3']) > -1) {
-              esign.cache.warmingHighEU27.push({
-                'iso-a3': esign.cache.warmingHigh[i]['iso-a3'],
-                value: EU27.value
-              });
-            } else {
-              esign.cache.warmingHighEU27.push(esign.cache.warmingHigh[i]);
-            }
-
-            if (esign.cache.countriesEU28.indexOf(esign.cache.warmingHigh[i]['iso-a3']) > -1) {
-              esign.cache.warmingHighEU28.push({
-                'iso-a3': esign.cache.warmingHigh[i]['iso-a3'],
-                value: EU28.value
-              });
-            } else {
-              esign.cache.warmingHighEU28.push(esign.cache.warmingHigh[i]);
-            }
-          }
-
-          esign.drawWarmingMap(esign.cache.warmingHighEU28, 'EU28');
-        });
-      } else {
-        esign.drawWarmingMap(esign.cache.warmingHighEU28, 'EU28');
-      }
-    }
-  }
-
-  if (esign.cache.warmingMode === 2) {
-    if (esign.cache.warmingModeUpdated) {
-      if (!esign.cache.warmingLowUpdated) {
-        $.getJSON('assets/data/warming_low_updated.json?v=' + esign.cache.version, function(dataMap) {
-          esign.cache.warmingLowUpdated = dataMap;
-
-          var EU27 = esign.getValueByIso(esign.cache.warmingLowUpdated, 'EU27');
-          var EU28 = esign.getValueByIso(esign.cache.warmingLowUpdated, 'EU28');
-
-          for (var i = 0; i < esign.cache.warmingLowUpdated.length; i += 1) {
-            if (esign.cache.countriesEU27.indexOf(esign.cache.warmingLowUpdated[i]['iso-a3']) > -1) {
-              esign.cache.warmingLowUpdatedEU27.push({
-                'iso-a3': esign.cache.warmingLowUpdated[i]['iso-a3'],
-                value: EU27.value
-              });
-            } else {
-              esign.cache.warmingLowUpdatedEU27.push(esign.cache.warmingLowUpdated[i]);
-            }
-
-            if (esign.cache.countriesEU28.indexOf(esign.cache.warmingLowUpdated[i]['iso-a3']) > -1) {
-              esign.cache.warmingLowUpdatedEU28.push({
-                'iso-a3': esign.cache.warmingLowUpdated[i]['iso-a3'],
-                value: EU28.value
-              });
-            } else {
-              esign.cache.warmingLowUpdatedEU28.push(esign.cache.warmingLowUpdated[i]);
-            }
-          }
-
-          esign.drawWarmingMap(esign.cache.warmingLowUpdatedEU27, 'EU27');
-        });
-      } else {
-        esign.drawWarmingMap(esign.cache.warmingLowUpdatedEU27, 'EU27');
-      }
-    } else {
-      if (!esign.cache.warmingLow) {
-        $.getJSON('assets/data/warming_low.json?v=' + esign.cache.version, function(dataMap) {
-          esign.cache.warmingLow = dataMap;
-
-          var EU27 = esign.getValueByIso(esign.cache.warmingLow, 'EU27');
-          var EU28 = esign.getValueByIso(esign.cache.warmingLow, 'EU28');
-
-          for (var i = 0; i < esign.cache.warmingLow.length; i += 1) {
-            if (esign.cache.countriesEU27.indexOf(esign.cache.warmingLow[i]['iso-a3']) > -1) {
-              esign.cache.warmingLowEU27.push({
-                'iso-a3': esign.cache.warmingLow[i]['iso-a3'],
-                value: EU27.value
-              });
-            } else {
-              esign.cache.warmingLowEU27.push(esign.cache.warmingLow[i]);
-            }
-
-            if (esign.cache.countriesEU28.indexOf(esign.cache.warmingLow[i]['iso-a3']) > -1) {
-              esign.cache.warmingLowEU28.push({
-                'iso-a3': esign.cache.warmingLow[i]['iso-a3'],
-                value: EU28.value
-              });
-            } else {
-              esign.cache.warmingLowEU28.push(esign.cache.warmingLow[i]);
-            }
-          }
-
-          esign.drawWarmingMap(esign.cache.warmingLowEU28, 'EU28');
-        });
-      } else {
-        esign.drawWarmingMap(esign.cache.warmingLowEU28, 'EU28');
-      }
-    }
-  }
+  loadWarmingType('Avg');
+  loadWarmingType('High');
+  loadWarmingType('Low');
 };
 
 /* Draw map, data of each single country must be in the 1.2-5.1 range to maintain correct color coding */
 esign.drawWarmingMap = function(data, seriesName) {
-
   // Allow nullInteraction fix
   Highcharts.seriesTypes.map.prototype.pointClass.prototype.onMouseOver = function (e) {
     clearTimeout(this.colorInterval);
@@ -33270,10 +33429,10 @@ esign.drawWarmingMap = function(data, seriesName) {
             esign.cache.dataSelected = true;
             esign.cache.isoSelected = this['iso-a3'];
 
-            if (this.series && this.series.name && this.series.name === 'EU27' && esign.cache.countriesEU27.indexOf(esign.cache.isoSelected) > -1) {
+            if (this.series && this.series.name && this.series.name === 'EU27' && esign.cache.countriesEU27.indexOf(esign.cache.isoSelected) > -1 && esign.cache.warmingSource !== 2) {
               esign.cache.isoSelected = 'EU27';
 
-            } else if (this.series && this.series.name && this.series.name === 'EU28' && esign.cache.countriesEU28.indexOf(esign.cache.isoSelected) > -1) {
+            } else if (this.series && this.series.name && this.series.name === 'EU28' && esign.cache.countriesEU28.indexOf(esign.cache.isoSelected) > -1 && esign.cache.warmingSource !== 2) {
               esign.cache.isoSelected = 'EU28';
             }
 
@@ -33417,23 +33576,61 @@ esign.drawWarmingMap = function(data, seriesName) {
           name;
 
         for (var i = 0; i < esign.cache.countries.length; i++) {
-          if(esign.cache.countries[i]['iso-a3'] === iso) name = esign.cache.countries[i]['country'];
+          if(esign.cache.countries[i]['iso-a3'] === iso) {
+            name = esign.cache.countries[i]['country'];
+            break;
+          }
         }
 
         if (name === undefined) {
           return false;
         }
 
+        if (esign.cache.warmingModeUpdated && esign.cache.warmingNonAssessedUpdatedTargets.indexOf(iso) > -1) {
+          return '<div class="tool"><h4>' + name
+            + '</h4><p style="margin-bottom: 5px;"><a href="https://unfccc.int/NDCREG" target="_blank" rel="noopener">Target updated but not assessed here</a></p><div class="approach">' + temperatureDisplayValue(this.point.options.value) + '</div>'
+            + '</div>';
+        }
+
         if (iso === 'EU27' || iso === 'EU28') {
           return '<div class="tool"><h4>' + name
-            + '</h4><p style="margin-bottom: 5px;">See country list for individual EU member states.</p><div class="approach">' + temperatureDisplayValue(this.point.options.value) + '</div>'
+            + '</h4><div class="approach">' + temperatureDisplayValue(this.point.options.value) + '</div>'
             + '</div>';
-        } else if (this.series && this.series.name && this.series.name === 'EU27' && esign.cache.countriesEU27.indexOf(iso) > -1) {
+        } else if (this.series && this.series.name && this.series.name === 'EU27' && esign.cache.countriesEU27.indexOf(iso) > -1 && esign.cache.warmingSource !== 2) {
+          var tempCountry = null;
+          var tempEU = null;
+
+          if (esign.cache.warmingSource === 0) {
+            tempCountry = esign.cache.warmingMode === 2 ? esign.getValueByIso(esign.cache.warmingLowUpdated, iso).value : esign.getValueByIso(esign.cache.warmingHighUpdated, iso).value;
+            tempEU = '2.3';
+          } else if (esign.cache.warmingSource === 1) {
+            tempCountry = esign.cache.warmingMode === 2 ? esign.getValueByIso(esign.cache.warmingLowMeinshausen, iso).value : esign.getValueByIso(esign.cache.warmingHighMeinshausen, iso).value;
+            tempEU = esign.cache.warmingMode === 2 ? esign.getValueByIso(esign.cache.warmingLowMeinshausen, 'EU27').value : esign.getValueByIso(esign.cache.warmingHighMeinshausen, 'EU27').value;
+          }
+
           return '<div class="tool"><h4>' + 'European Union (27)'
-            + '</h4><p style="margin-bottom: 5px;">See country list for individual EU member states.</p><div class="approach">' + '2.3 °C' + '</div></div>';
-        } else if (this.series && this.series.name && this.series.name === 'EU28' && esign.cache.countriesEU28.indexOf(iso) > -1) {
+            + '</h4><div class="approach">' + tempEU + ' °C </div><hr>'
+            + '<h4>' + name
+            + '</h4><p style="margin-bottom: 5px;">Select in country list to look at individual EU member state</p><div class="approach">' + temperatureDisplayValue(tempCountry) + '</div></div></div>';
+        } else if (this.series && this.series.name && this.series.name === 'EU28' && esign.cache.countriesEU28.indexOf(iso) > -1 && esign.cache.warmingSource !== 2) {
+          var temp = null;
+
+          if (esign.cache.warmingMode === 0) {
+            temp = esign.getValueByIso(esign.cache.warmingAvg, iso).value;
+          }
+
+          if (esign.cache.warmingMode === 1) {
+            temp = esign.getValueByIso(esign.cache.warmingHigh, iso).value;
+          }
+
+          if (esign.cache.warmingMode === 2) {
+            temp = esign.getValueByIso(esign.cache.warmingLow, iso).value;
+          }
+
           return '<div class="tool"><h4>' + 'European Union (28)'
-            + '</h4><p style="margin-bottom: 5px;">See country list for individual EU member states.</p><div class="approach">' + '3.2 °C' + '</div></div>';
+            + '</h4><div class="approach">' + '3.2 °C' + '</div><hr>'
+            + '<h4>' + name
+            + '</h4><p style="margin-bottom: 5px;">Select in country list to look at individual EU member state</p><div class="approach">' + temperatureDisplayValue(temp) + '</div></div></div>';
         } else {
           return '<div class="tool"><h4>' + name
             + '</h4><div class="approach">' + temperatureDisplayValue(this.point.options.value) + '</div></div>';
@@ -33568,7 +33765,11 @@ esign.handleWarmingDataSeries = function(seriesOptions, type = '') {
 
   if (esign.cache.warmingMode === 1) {
     if (esign.cache.warmingModeUpdated) {
-      esign.cache.map.addSeries(seriesOptions(esign.cache['warmingHighUpdated' + type], '' + type));
+      if (esign.cache.warmingSource === 0) {
+        esign.cache.map.addSeries(seriesOptions(esign.cache['warmingHighUpdated' + type], '' + type));
+      } else {
+        esign.cache.map.addSeries(seriesOptions(esign.cache['warmingHighMeinshausen' + type], '' + type));
+      }
     } else {
       esign.cache.map.addSeries(seriesOptions(esign.cache['warmingHigh' + type], '' + type));
     }
@@ -33576,7 +33777,11 @@ esign.handleWarmingDataSeries = function(seriesOptions, type = '') {
 
   if (esign.cache.warmingMode === 2) {
     if (esign.cache.warmingModeUpdated) {
-      esign.cache.map.addSeries(seriesOptions(esign.cache['warmingLowUpdated' + type], '' + type));
+      if (esign.cache.warmingSource === 0) {
+        esign.cache.map.addSeries(seriesOptions(esign.cache['warmingLowUpdated' + type], '' + type));
+      } else {
+        esign.cache.map.addSeries(seriesOptions(esign.cache['warmingLowMeinshausen' + type], '' + type));
+      }
     } else {
       esign.cache.map.addSeries(seriesOptions(esign.cache['warmingLow' + type], '' + type));
     }
@@ -33585,9 +33790,11 @@ esign.handleWarmingDataSeries = function(seriesOptions, type = '') {
 
 /* Open warming chart view */
 esign.openWarmingChart = function(color, temperature) {
+  var $graphCountryTitle = $('.graph-country__title');
+  var $graphCountryTemperature = $('.graph-country__temperature');
   $('.modal-button-graph').trigger('click');
-  $('.graph-country__title').text(esign.cache.countrySelected);
-  $('.graph-country__temperature').html(temperature);
+  $graphCountryTitle.text(esign.cache.countrySelected);
+  $graphCountryTemperature.html(temperature);
 
   esign.fairnessStatement(esign.cache.isoSelected);
 
@@ -33681,7 +33888,16 @@ esign.initWarmingChartEvents = function (color) {
 
 /* Create warming chart */
 esign.createWarmingChart = function(year, color = esign.cache.color.black) {
-  var warmingConsistencyData = esign.cache.warmingModeUpdated ? esign.cache.warmingConsistencyDataUpdated : esign.cache.warmingConsistencyData;
+  var warmingConsistencyData = esign.cache.warmingConsistencyData;
+
+  if (esign.cache.warmingModeUpdated) {
+    if (esign.cache.warmingSource === 0) {
+      warmingConsistencyData = esign.cache.warmingConsistencyDataUpdated
+    } else {
+      warmingConsistencyData = esign.cache.warmingConsistencyDataMeinshausen;
+    }
+  }
+
   var countryData = warmingConsistencyData.filter(getCountryIso)[0];
 
   function getCountryIso(value) {
@@ -33817,9 +34033,9 @@ esign.createWarmingChart = function(year, color = esign.cache.color.black) {
     chartErrorDataHighData = null;
   }
 
-  // console.log(xAxis[yAxis.indexOf(countryData['em-avg-y'])]);
-  // console.log(xAxis[yAxis.indexOf(countryData['em-high-y'])]);
-  // console.log(xAxis[yAxis.indexOf(countryData['em-low-y'])]);
+  // console.log('avg', xAxis[yAxis.indexOf(countryData['em-avg-y'])]);
+  // console.log('high', xAxis[yAxis.indexOf(countryData['em-high-y'])]);
+  // console.log('low', xAxis[yAxis.indexOf(countryData['em-low-y'])]);
 
   for (var j = 0; j < xAxis.length; j++) {
     var newYValue = (yAxis[j] + 100) * levelsCoefficient;
@@ -34019,37 +34235,6 @@ esign.createWarmingChart = function(year, color = esign.cache.color.black) {
   }
 
   chart.addSeries({
-    id: 'ndc-low',
-    name: lowSeriesName,
-    data: chartDotLowData,
-    type: 'scatter',
-    zIndex: 999,
-    marker: {
-      lineWidth: 1,
-      radius: 8,
-      lineColor: esign.cache.warmingModeUpdated ? color : colorLight,
-      fillColor: esign.cache.warmingModeUpdated ? color : '#f6faff',
-      symbol: 'circle',
-      enabled: !!chartDotLowData
-    },
-    showInLegend: true
-  });
-
-  if (chartErrorDataLowData) {
-    chart.addSeries({
-      name: 'NDC low assessment uncertainty range',
-      data: chartErrorDataLowData,
-      type: 'errorbar',
-      zIndex: 998,
-      showInLegend: false,
-      linkedTo: 'ndc-low',
-      pointStart: chartDotLowData[0][0],
-      stemWidth: 2,
-      pointWidth: 3
-    });
-  }
-
-  chart.addSeries({
     id: 'ndc-high',
     name: highSeriesName,
     data: chartDotHighData,
@@ -34075,6 +34260,37 @@ esign.createWarmingChart = function(year, color = esign.cache.color.black) {
       showInLegend: false,
       linkedTo: 'ndc-high',
       pointStart: chartDotHighData[0][0],
+      stemWidth: 2,
+      pointWidth: 3
+    });
+  }
+
+  chart.addSeries({
+    id: 'ndc-low',
+    name: lowSeriesName,
+    data: chartDotLowData,
+    type: 'scatter',
+    zIndex: 999,
+    marker: {
+      lineWidth: 1,
+      radius: 8,
+      lineColor: esign.cache.warmingModeUpdated ? color : colorLight,
+      fillColor: esign.cache.warmingModeUpdated ? color : '#f6faff',
+      symbol: 'circle',
+      enabled: !!chartDotLowData
+    },
+    showInLegend: true
+  });
+
+  if (chartErrorDataLowData) {
+    chart.addSeries({
+      name: 'NDC low assessment uncertainty range',
+      data: chartErrorDataLowData,
+      type: 'errorbar',
+      zIndex: 998,
+      showInLegend: false,
+      linkedTo: 'ndc-low',
+      pointStart: chartDotLowData[0][0],
       stemWidth: 2,
       pointWidth: 3
     });

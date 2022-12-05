@@ -1,7 +1,7 @@
 [
   {
     "iso-a3": "ARG",
-    "value": 4.3
+    "value": null
   },
   {
     "iso-a3": "ARM",
@@ -9,7 +9,7 @@
   },
   {
     "iso-a3": "AUS",
-    "value": 4.4
+    "value": 3.8
   },
   {
     "iso-a3": "AUT",
@@ -69,7 +69,7 @@
   },
   {
     "iso-a3": "BRA",
-    "value": 5.1
+    "value": 2.9
   },
   {
     "iso-a3": "BRB",
@@ -149,11 +149,11 @@
   },
   {
     "iso-a3": "CZE",
-    "value": null
+    "value": 3.8
   },
   {
     "iso-a3": "DEU",
-    "value": null
+    "value": 2.1
   },
   {
     "iso-a3": "DJI",
@@ -161,7 +161,7 @@
   },
   {
     "iso-a3": "DNK",
-    "value": null
+    "value": 1.4
   },
   {
     "iso-a3": "DOM",
@@ -185,15 +185,15 @@
   },
   {
     "iso-a3": "ESP",
-    "value": null
+    "value": 2.3
   },
   {
     "iso-a3": "EST",
-    "value": null
+    "value": 3.3
   },
   {
     "iso-a3": "ETH",
-    "value": 1.2
+    "value": null
   },
   {
     "iso-a3": "FIN",
@@ -205,7 +205,7 @@
   },
   {
     "iso-a3": "FRA",
-    "value": null
+    "value": 2.4
   },
   {
     "iso-a3": "GAB",
@@ -229,7 +229,7 @@
   },
   {
     "iso-a3": "GMB",
-    "value": null
+    "value": 1.2
   },
   {
     "iso-a3": "GNB",
@@ -241,7 +241,7 @@
   },
   {
     "iso-a3": "GRC",
-    "value": null
+    "value": 2.3
   },
   {
     "iso-a3": "GTM",
@@ -265,19 +265,19 @@
   },
   {
     "iso-a3": "HUN",
-    "value": null
+    "value": 3.7
   },
   {
     "iso-a3": "IDN",
-    "value": 3.4
+    "value": 5.1
   },
   {
     "iso-a3": "IND",
-    "value": null
+    "value": 2.2
   },
   {
     "iso-a3": "IRL",
-    "value": null
+    "value": 2.1
   },
   {
     "iso-a3": "IRN",
@@ -309,7 +309,7 @@
   },
   {
     "iso-a3": "JPN",
-    "value": null
+    "value": 3.0
   },
   {
     "iso-a3": "KAZ",
@@ -329,7 +329,7 @@
   },
   {
     "iso-a3": "KOR",
-    "value": 3.6
+    "value": 4.0
   },
   {
     "iso-a3": "KWT",
@@ -365,7 +365,7 @@
   },
   {
     "iso-a3": "LTU",
-    "value": null
+    "value": 2.8
   },
   {
     "iso-a3": "LUX",
@@ -373,7 +373,7 @@
   },
   {
     "iso-a3": "LVA",
-    "value": null
+    "value": 2.9
   },
   {
     "iso-a3": "MAR",
@@ -449,7 +449,7 @@
   },
   {
     "iso-a3": "NLD",
-    "value": null
+    "value": 2.4
   },
   {
     "iso-a3": "NOR",
@@ -461,7 +461,7 @@
   },
   {
     "iso-a3": "NZL",
-    "value": 5.1
+    "value": 3.3
   },
   {
     "iso-a3": "OMN",
@@ -493,7 +493,7 @@
   },
   {
     "iso-a3": "PRT",
-    "value": null
+    "value": 2.1
   },
   {
     "iso-a3": "PRY",
@@ -585,7 +585,7 @@
   },
   {
     "iso-a3": "THA",
-    "value": null
+    "value": 5.1
   },
   {
     "iso-a3": "TJK",
@@ -665,7 +665,7 @@
   },
   {
     "iso-a3": "ZAF",
-    "value": 3.3
+    "value": 3.0
   },
   {
     "iso-a3": "ZMB",
