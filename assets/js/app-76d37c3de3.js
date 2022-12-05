@@ -33893,8 +33893,10 @@ esign.createWarmingChart = function(year, color = esign.cache.color.black) {
   if (esign.cache.warmingModeUpdated) {
     if (esign.cache.warmingSource === 0) {
       warmingConsistencyData = esign.cache.warmingConsistencyDataUpdated
-    } else {
+    } else if (esign.cache.warmingSource === 1) {
       warmingConsistencyData = esign.cache.warmingConsistencyDataMeinshausen;
+    } else if (esign.cache.warmingSource === 2) {
+      warmingConsistencyData = esign.cache.warmingConsistencyDataNationalEUTargets;
     }
   }
 
@@ -34766,4 +34768,4 @@ define("../resources/assets/js/esign", function(){});
 
 
 
-//# sourceMappingURL=app-f35ee3d375.js.map
+//# sourceMappingURL=app-76d37c3de3.js.map
