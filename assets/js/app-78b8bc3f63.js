@@ -30964,6 +30964,7 @@ esign.cacheSelectors = function () {
     countriesEU27: ['AUT', 'BEL', 'BGR', 'HRV', 'CYP', 'CZE', 'DNK', 'EST', 'FIN', 'FRA', 'DEU', 'GRC', 'HUN', 'IRL', 'ITA', 'LVA', 'LTU', 'LUX', 'MLT', 'NLD', 'POL', 'PRT', 'ROU', 'SVK', 'SVN', 'ESP', 'SWE'],
     countriesEU28: ['AUT', 'BEL', 'BGR', 'HRV', 'CYP', 'CZE', 'DNK', 'EST', 'FIN', 'FRA', 'DEU', 'GRC', 'HUN', 'IRL', 'ITA', 'LVA', 'LTU', 'LUX', 'MLT', 'NLD', 'POL', 'PRT', 'ROU', 'SVK', 'SVN', 'ESP', 'SWE', 'GBR'],
     warmingNonAssessedUpdatedTargets: ['ALB', 'AND', 'AGO', 'ATG', 'ARG', 'ARM', 'BHR', 'BGD', 'BRB', 'BLR', 'BLZ', 'BEN', 'BOL', 'BIH', 'BRN', 'BFA', 'BDI', 'CPV', 'KHM', 'CMR', 'CAF', 'TCD', 'COM', 'COG', 'COD', 'CIV', 'CUB', 'DOM', 'ETH', 'SLV', 'SWZ', 'FJI', 'GEO', 'GHA', 'GRD', 'GTM', 'GIN', 'GNB', 'HND', 'ISL', 'IRQ', 'JAM', 'JOR', 'PRK', 'KWT', 'KGZ', 'LAO', 'LBN', 'LBR', 'MWI', 'MYS', 'MDV', 'MLI', 'MHL', 'MRT', 'MUS', 'MDA', 'MCO', 'MNG', 'MNE', 'MOZ', 'MMR', 'NAM', 'NRU', 'NIC', 'NER', , 'OMN', 'PAK', 'PSE', 'PAN', 'PHL', 'PNG', 'PRY', 'QAT', 'RWA', 'KNA', 'LCA', 'WSM', 'SAU', 'STP', 'SEN', 'SYC', 'SLE', 'SLB', 'SOM', 'SSD', 'LKA', 'SDN', 'SUR', 'TJK', 'TZA', 'TGO', 'TON', 'TUN', 'UGA', 'UZB', 'VUT', 'VEN', 'ZMB', 'ZWE'],
+    countriesNationalEUTargets: ['FRA', 'DEU', 'CZE', 'DNK', 'EST', 'GRC', 'HUN', 'IRL', 'LVA', 'LTU', 'NLD', 'PRT', 'ESP'],
   }
 };
 
@@ -33597,6 +33598,12 @@ esign.drawWarmingMap = function(data, seriesName) {
             + '</h4><div class="approach">' + temperatureDisplayValue(this.point.options.value) + '</div>'
             + '</div>';
         } else if (this.series && this.series.name && this.series.name === 'EU27' && esign.cache.countriesEU27.indexOf(iso) > -1 && esign.cache.warmingSource !== 2) {
+          if (esign.cache.warmingSource === 0) {
+            return '<div class="tool"><h4>' + 'European Union (27)'
+              + '</h4><div class="approach">' + temperatureDisplayValue(this.point.options.value) + '</div>'
+              + '</div>';
+          }
+
           var tempCountry = null;
           var tempEU = null;
 
@@ -33678,9 +33685,26 @@ esign.drawWarmingMap = function(data, seriesName) {
     }
   });
 
-  countryListItem.mouseover(function () {
+  countryListItem.mouseenter(function () {
     if(!esign.cache.isMobile) {
       iso = this.getAttribute('data-iso');
+
+      if (esign.cache.warmingModeUpdated) {
+        if (esign.cache.warmingSource === 1) {
+          if (iso === 'EU27') {
+            esign.handleWarmingDataSeries(seriesOptions, 'EU27');
+          } else if (esign.cache.countriesEU27.indexOf(iso) > -1) {
+            esign.handleWarmingDataSeries(seriesOptions);
+          }
+        }
+      } else {
+        if (iso === 'EU28') {
+          esign.handleWarmingDataSeries(seriesOptions, 'EU28');
+        } else if (esign.cache.countriesEU28.indexOf(iso) > -1) {
+          esign.handleWarmingDataSeries(seriesOptions);
+        }
+      }
+
       for(var i = 0; i < esign.cache.map.series[0].data.length; i++) {
         if(esign.cache.map.series[0].data[i]['iso-a3'] === iso) {
           tooltip = esign.cache.map.series[0].data[i];
@@ -33704,8 +33728,20 @@ esign.drawWarmingMap = function(data, seriesName) {
     }
   });
 
-  countryListItem.mouseout(function () {
+  countryListItem.mouseleave(function () {
     if(!esign.cache.isMobile) {
+      var iso = this.getAttribute('data-iso');
+
+      if (esign.cache.warmingModeUpdated) {
+        if (esign.cache.countriesEU27.indexOf(iso) > -1 && esign.cache.warmingSource === 1) {
+          esign.handleWarmingDataSeries(seriesOptions, 'EU27');
+        }
+      } else {
+        if (esign.cache.countriesEU28.indexOf(iso) > -1) {
+          esign.handleWarmingDataSeries(seriesOptions, 'EU28');
+        }
+      }
+
       if (esign.cache.map !== undefined) {
         if (tooltip && tooltip.setState) {
           tooltip.setState();
@@ -33715,41 +33751,28 @@ esign.drawWarmingMap = function(data, seriesName) {
     }
   });
 
-  countryListItem.mouseenter(function () {
-    if(!esign.cache.isMobile) {
-      var iso = this.getAttribute('data-iso');
+  countryListItem.removeClass('hide')
 
-      if (esign.cache.warmingModeUpdated) {
-        if (iso === 'EU27') {
-          esign.handleWarmingDataSeries(seriesOptions, 'EU27');
-        } else if (esign.cache.countriesEU27.indexOf(iso) > -1) {
-          esign.handleWarmingDataSeries(seriesOptions);
+  if (esign.cache.warmingModeUpdated) {
+    if (esign.cache.warmingSource === 0) {
+      // Hide EU27 items
+      countryListItem.each(function(index, element) {
+        var $element = $(element);
+        if (esign.cache.countriesEU27.indexOf($element.data('iso')) > -1) {
+          $element.addClass('hide');
         }
-      } else {
-        if (iso === 'EU28') {
-          esign.handleWarmingDataSeries(seriesOptions, 'EU28');
-        } else if (esign.cache.countriesEU28.indexOf(iso) > -1) {
-          esign.handleWarmingDataSeries(seriesOptions);
-        }
-      }
+      });
     }
-  });
 
-  countryListItem.mouseleave(function () {
-    if(!esign.cache.isMobile) {
-      var iso = this.getAttribute('data-iso');
-
-      if (esign.cache.warmingModeUpdated) {
-        if (esign.cache.countriesEU27.indexOf(iso) > -1) {
-          esign.handleWarmingDataSeries(seriesOptions, 'EU27');
+    if (esign.cache.warmingSource === 2) {
+      // Hide EU27 & all other than National EU Targets
+      countryListItem.each(function(index, element) {
+        if (esign.cache.countriesNationalEUTargets.indexOf($(element).data('iso')) < 0) {
+          $(element).addClass('hide');
         }
-      } else {
-        if (esign.cache.countriesEU28.indexOf(iso) > -1) {
-          esign.handleWarmingDataSeries(seriesOptions, 'EU28');
-        }
-      }
+      });
     }
-  });
+  }
 };
 
 esign.handleWarmingDataSeries = function(seriesOptions, type = '') {
@@ -34768,4 +34791,4 @@ define("../resources/assets/js/esign", function(){});
 
 
 
-//# sourceMappingURL=app-76d37c3de3.js.map
+//# sourceMappingURL=app-78b8bc3f63.js.map
