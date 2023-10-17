@@ -10052,6 +10052,12 @@ html.no-flexbox .equal-h > div {
     display: block;
   }
 }
+.navbar-link--external {
+  display: -webkit-box !important;
+  display: -ms-flexbox !important;
+  display: flex !important;
+  gap: 5px;
+}
 .navbar-default {
   margin: 0;
   border: none;
@@ -11530,4 +11536,4 @@ article a:focus img {
 
 /*# sourceMappingURL=style.css.map */
 
-/*# sourceMappingURL=style-1d8f6c56ed.css.map */
+/*# sourceMappingURL=style-ff52c0eaa6.css.map */
